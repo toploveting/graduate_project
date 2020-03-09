@@ -93,7 +93,7 @@ export default {
       data: [
         {
           name: Monday,
-          Morning: '',
+          Morning: '1',
           Noon: '',
           Night: ''
         },
