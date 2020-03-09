@@ -24,7 +24,7 @@
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please type something']"/>
         <div class="q-gutter-md">
-    <p>日期區間</p>
+    <p>日期區間8</p>
       <q-date
         v-model="date"
         today-btn
