@@ -46,7 +46,15 @@ module.exports = function (ctx) {
 
       components: [
         'QBtn',
-        'QIcon'
+        'QIcon',
+        'QForm',
+        'QInput',
+        'QRadio',
+        'QOptionGroup',
+        'QField',
+        'QDate',
+        'QCheckbox',
+        'QTime'
       ],
       directives: [],
 
