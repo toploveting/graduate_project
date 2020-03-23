@@ -27,7 +27,16 @@ module.exports = function (ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons',
+      'material-icons-outlined',
+      'material-icons-round',
+      'material-icons-sharp',
+      'mdi-v3',
+      'ionicons-v4',
+      'eva-icons',
+      'fontawesome-v5',
+      'themify',
+      'line-awesome'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -54,9 +63,16 @@ module.exports = function (ctx) {
         'QField',
         'QDate',
         'QCheckbox',
-        'QTime'
+        'QTime',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QSlideItem',
+        'QDialog'
       ],
-      directives: [],
+      directives: [
+        'ClosePopup'
+      ],
 
       // Quasar plugins
       plugins: []

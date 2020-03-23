@@ -2,8 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
+import 'ant-design-vue/dist/antd.css'
+import { DatePicker } from 'ant-design-vue'
+import VCalendar from 'v-calendar'
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(VueRouter)
+Vue.use(DatePicker)
+Vue.use(VCalendar)
+Vue.use(VueClipboard)
+Vue.component(DatePicker.name, DatePicker)
+Vue.component(DatePicker.RangePicker.name, DatePicker.RangePicker)
 
 /*
  * If not building with SSR mode, you can

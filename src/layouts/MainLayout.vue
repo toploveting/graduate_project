@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header>
-      <q-toolbar>
+      <q-toolbar class="toolbar text-secondary">
         <q-btn
           flat
           dense
@@ -11,7 +11,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <div class="q-px-xl">
-          <div class="text-h5">Bingo</div>
+          <div class="text-h5 q-pl-xl">JOINME</div>
         </div>
       </q-toolbar>
     </q-header>
