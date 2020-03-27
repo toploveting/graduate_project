@@ -17,7 +17,7 @@ import iconSet from 'quasar/icon-set/material-icons'
 
 import Vue from 'vue'
 
-import {Quasar,QBtn,QIcon} from 'quasar'
+import {Quasar,QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,ClosePopup} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,components: {QBtn,QIcon} })
+Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,components: {QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller},directives: {ClosePopup} })
