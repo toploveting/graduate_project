@@ -12,11 +12,11 @@ const routes = [
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'signin', component: () => import('pages/Signin.vue') },
       { path: 'email', component: () => import('pages/Email.vue') },
-      { path: 'success', component: () => import('pages/Success.vue') }
+      { path: 'success', component: () => import('pages/Success.vue') },
+      { path: 'class', component: () => import('pages/Class.vue') }
     ]
   }
 ]
-
 // Always leave this as last one
 if (process.env.MODE !== 'ssr') {
   routes.push({

@@ -68,7 +68,20 @@ module.exports = function (ctx) {
         'QCardSection',
         'QCardActions',
         'QSlideItem',
-        'QDialog'
+        'QDialog',
+        'QStepper',
+        'QStep',
+        'QStepperNavigation',
+        'QToggle',
+        'QExpansionItem',
+        'QLayout',
+        'QPageContainer',
+        'QPage',
+        'QHeader',
+        'QFooter',
+        'QDrawer',
+        'QPageSticky',
+        'QPageScroller'
       ],
       directives: [
         'ClosePopup'

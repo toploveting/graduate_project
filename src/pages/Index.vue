@@ -9,13 +9,19 @@
     />
    </div>
     <div class="btngroup q-pa-md q-gutter-sm">
-      <q-btn class="q-ma-xl" unelevated to="list" size="25px" round color="deep-orange" >
-      <q-icon name="access_time" style= "color:#fff ; font-size: 2.3em;" />
+      <div class="q-ma-lg blue">
+      <q-btn to="list" size="40px" color="white" >
+      <q-img src="~assets/oval1.png" height="70px" width="70px"/>
       </q-btn>
+      <p class="text-h6 q-pl-sm q-pt-md">分享時間</p>
+      </div>
       <br>
-      <q-btn class="q-ma-xl" unelevated to="form" size="25px" round color="deep-orange" >
-      <q-icon name="calendar_today" style= "color:#fff ; font-size: 2em;" />
+      <div class="q-ma-lg pink">
+      <q-btn to="form" size="40px" color="white">
+      <q-img src="~assets/oval2.png" height="70px" width="70px"/>
       </q-btn>
+      <p class="text-h6 q-pl-sm q-pt-md">建立活動</p>
+      </div>
     </div>
   </q-page>
 </template>
@@ -26,6 +32,12 @@
   }
   .btngroup{
     position: relative;
+  }
+  .blue{
+    color: rgb(63,121,204)
+  }
+  .pink{
+    color: rgb(213,102,102)
   }
 </style>
 
