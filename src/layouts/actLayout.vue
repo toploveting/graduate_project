@@ -40,11 +40,33 @@
               </q-item-section>
             </q-item>
             <q-separator color="white"/>
-            <q-item clickable v-ripple to="list">
-              <q-item-section>
-                分享時間
-              </q-item-section>
-            </q-item>
+            <q-expansion-item
+              label="分享時間" expand-icon-class="text-white">
+              <q-item clickable v-ripple to="class">
+                <q-item-section avatar>
+                  <q-img src="~assets/classminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
+                </q-item-section>
+                <q-item-section>
+                  課表
+                </q-item-section>
+              </q-item>
+              <q-item clickable v-ripple to="week">
+                <q-item-section avatar>
+                  <q-img src="~assets/weekminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
+                </q-item-section>
+                <q-item-section>
+                  週曆
+                </q-item-section>
+              </q-item>
+              <q-item clickable v-ripple to="month">
+                <q-item-section avatar>
+                  <q-img src="~assets/monthminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
+                </q-item-section>
+                <q-item-section>
+                  月曆
+                </q-item-section>
+              </q-item>
+            </q-expansion-item>
             <q-expansion-item
               label="建立活動" expand-icon-class="text-white">
               <q-item clickable v-ripple>
