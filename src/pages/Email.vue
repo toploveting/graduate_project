@@ -20,8 +20,13 @@
           <span class="q-ml-sm">是否要匯入行事曆</span>
         </q-card-section>
         <q-card-actions align="right">
+<<<<<<< HEAD
           <q-btn to="/" flat label="不允許" color="secondary" v-close-popup />
           <q-btn to="/" flat label="允許" color="secondary" v-close-popup />
+=======
+          <q-btn to="home" flat label="不允許" color="secondary" v-close-popup />
+          <q-btn to="home" flat label="允許" color="secondary" v-close-popup />
+>>>>>>> origin/ting
         </q-card-actions>
       </q-card>
     </q-dialog>

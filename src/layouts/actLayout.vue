@@ -1,7 +1,7 @@
 <template>
-  <q-layout view="hHh lpr fFf">
-    <q-header>
-      <q-toolbar class="toolbar text-secondary">
+  <q-layout view="hHh lpr fFf" style="height:300px" class="rounded-borders">
+    <q-header elevated class="bg-secondary">
+      <q-toolbar>
         <q-btn
           flat
           dense
@@ -11,25 +11,25 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-toolbar-title class="title">JOINME</q-toolbar-title>
+        <q-btn
+          to="home"
+          flat
+          dense
+          round
+          icon="clear"/>
       </q-toolbar>
     </q-header>
 
       <q-drawer
         v-model="leftDrawerOpen"
-        overlay
         :width="216"
         :breakpoint="500"
         content-class="bg-secondary"
         class="drawer"
       >
-<<<<<<< HEAD
-        <q-scroll-area style="height: calc(100% - 100px); margin-top: 100px; border-top: 1px solid #ddd">
+        <q-scroll-area class="fit">
           <q-list padding>
-            <q-item clickable v-ripple>
-=======
-        <q-scroll-area style="height: calc(100% - 100px)">
-          <q-list padding>
-            <q-item clickable v-ripple>
+            <q-item clickable v-ripple to="home">
               <q-item-section class="q-py-sm">
                 <q-avatar size="56px">
                   <img src="~assets/ying.jpg"/>
@@ -41,18 +41,13 @@
             </q-item>
             <q-separator color="white"/>
             <q-item clickable v-ripple to="list">
->>>>>>> origin/ting
               <q-item-section>
                 分享時間
               </q-item-section>
             </q-item>
             <q-expansion-item
               label="建立活動" expand-icon-class="text-white">
-<<<<<<< HEAD
               <q-item clickable v-ripple>
-=======
-              <q-item clickable v-ripple to="activity">
->>>>>>> origin/ting
                 <q-item-section avatar>
                   <q-icon name="star"></q-icon>
                 </q-item-section>
@@ -72,18 +67,6 @@
             </q-item>
           </q-list>
         </q-scroll-area>
-<<<<<<< HEAD
-        <div class="absolute-top id" style="height: 100px">
-          <div class="absolute-bottom">
-            <q-avatar size="56px" class="q-mb-md q-mx-md">
-              <img src="~assets/ying.jpg">
-            </q-avatar>
-            陳穎
-          </div>
-          <q-separator/>
-        </div>
-=======
->>>>>>> origin/ting
       </q-drawer>
     <q-page-container>
       <router-view />
@@ -102,7 +85,7 @@
 
 <script>
 export default {
-  name: 'MainLayout',
+  name: 'actLayout',
 
   components: {
   },

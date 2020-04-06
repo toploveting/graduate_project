@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 .quasar
 .DS_Store
 .thumbs.db
 node_modules
+=======
+>>>>>>> origin/ting
 .DS_Store
 .thumbs.db
 node_modules
