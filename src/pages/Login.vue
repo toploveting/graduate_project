@@ -2,10 +2,11 @@
 <div>
   <div class="btngroup q-pa-lg q-px-lg">
 
-    <section id="firebaseui-auth-container"><q-btn @click="auth('facebook')" color="blue-10" unelevated style="width:180px" class="btn q-ma-md">
+    <section id="firebaseui-auth-container"></section>
+    <q-btn @click="auth('facebook')" color="blue-10" unelevated style="width:180px" class="btn q-ma-md">
       <q-icon class="fab fa-facebook-f q-pa-md q-pr-lg" size="sm"/>
       <label class="q-px-sm">Facebook</label>
-    </q-btn></section>
+    </q-btn>
 
     <br>
 
@@ -49,11 +50,6 @@ export default {
     }
     ui.start('#firebaseui-auth-container', uiConfig)
   },
-  // mounted () {
-  //   gapi.signin2.render('google-signin-button', {
-  //     onsuccess: this.onSignIn
-  //   })
-  // },
   methods: {
     OnGoogleAuthSuccess (idToken) {
       // Receive the idToken and make your magic with the backend
