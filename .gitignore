@@ -38,3 +38,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+node_modules

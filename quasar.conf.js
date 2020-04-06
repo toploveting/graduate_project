@@ -6,12 +6,11 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
-    boot: [
-      'i18n',
-      'axios'
-    ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
+    boot: [
+      'firebase'
+    ],
     css: [
       'app.scss'
     ],
@@ -114,7 +113,8 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
+            formatter: require('eslint').CLIEngine.getFormatter('stylish'),
+            fix: true
           }
         })
       }

@@ -7,9 +7,9 @@
           dense
           round
           icon="navigate_beforet"
-          to="home"/>
+          to="list"/>
         <q-toolbar-title class="title">課表</q-toolbar-title>
-        <q-btn flat round dense icon="clear" class="q-mr-xs" />
+        <q-btn flat round dense icon="clear" class="q-mr-xs" to="home"/>
       </q-toolbar>
     </q-header>
     <q-page-container>

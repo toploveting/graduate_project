@@ -11,16 +11,25 @@
         { label: 'None', value: 'none' },
       ]"
     /> -->
+<<<<<<< HEAD
 
     <q-table
       :data="data"
       :columns="columns"
       row-key="name"
+=======
+  {{selected}}
+    <q-table
+      :data="data"
+      :columns="columns"
+      row-key="id"
+>>>>>>> origin/firebase3
       :separator="separator"
       hide-bottom
       flat
       :pagination.sync="pagination"
     >
+<<<<<<< HEAD
         <template>
           <q-tr no-hover>
              <q-td>
@@ -28,6 +37,29 @@
           </q-tr>
         </template>
     </q-table>
+=======
+      <template v-slot:body="props">
+        <q-tr no-hover="" :props="props" class="cursor-pointer">
+        <!-- <q-tr no-hover v-for="(desc, key) in data" :key="key">
+          <q-td>{{desc.Morning}}</q-td>
+          <q-td>{{desc.Noon}}</q-td>
+          <q-td>{{desc.Noon}}</q-td> -->
+            <q-td :props="props" v-for="col in props.cols" :key="col.name" @click.native="selectRow(props.row.id,col.name)" :class="selected.hasOwnProperty(props.row.id) && selected[props.row.id].indexOf(col.name) != -1? 'bg-grey-3':''">
+              {{ props.row[col.field] }}
+              <!-- <img src="https://cdn.auth0.com/blog/vuejs/vue-logo.png" alt="" width="50" height="50"> -->
+            </q-td>
+            <!-- <q-td v-slot:body-cell>
+              <img src="https://cdn.auth0.com/blog/vuejs/vue-logo.png" alt="" width="50" height="50">
+            </q-td> -->
+        </q-tr>
+      </template>
+
+      <template v-slot:body-cell-Night="cell">
+        {{cell.Night}}
+      </template>
+    </q-table>
+
+>>>>>>> origin/firebase3
   </div>
 </template>
 
@@ -66,6 +98,10 @@ const Sunday = date.formatDate(newDate, 'D')
 export default {
   data () {
     return {
+<<<<<<< HEAD
+=======
+      selected: {},
+>>>>>>> origin/firebase3
       separator: 'cell',
       pagination: {
         descending: true,
@@ -79,7 +115,11 @@ export default {
           required: true,
           label: Month + '月',
           align: 'center',
+<<<<<<< HEAD
           field: row => row.name,
+=======
+          field: 'name',
+>>>>>>> origin/firebase3
           format: val => `${val}`
         },
         { name: 'Morning', align: 'center', label: 'Morning', field: 'Morning' },
@@ -89,6 +129,7 @@ export default {
         // { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
         // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+<<<<<<< HEAD
         
       ],
       data: [
@@ -136,7 +177,87 @@ export default {
         }
       ]
     }
+=======
+      ],
+      data: [
+        {
+          id: 0,
+          name: Monday,
+          Motning: '',
+          Noon: ''
+          // Night: ''
+        },
+        {
+          id: 1,
+          name: Tuesday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        },
+        {
+          id: 2,
+          name: Wednesday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        },
+        {
+          id: 3,
+          name: Thursday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        },
+        {
+          id: 4,
+          name: Friday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        },
+        {
+          id: 5,
+          name: Saturday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        },
+        {
+          id: 6,
+          name: Sunday
+          // Morning: '',
+          // Noon: '',
+          // Night: ''
+        }
+      ]
+    }
+  },
+  methods: {
+    selectRow (index, value) {
+      if (Object.prototype.hasOwnProperty.call(this.selected, index)) {
+        this.selected[index].indexOf(value) === -1 ? this.selected[index].push(value) : this.selected[index].splice(this.selected[index].indexOf(value), 1)
+      } else {
+        this.selected[index] = []
+        this.selected[index].push(value)
+        this.selected = Object.assign({}, this.selected)
+      }
+    },
+    getColor (val) {
+      if (val === 'cold') return 'green'
+      if (val === 'room') return 'yellow'
+      if (val === 'warm') return 'red'
+    }
+>>>>>>> origin/firebase3
   }
 }
 
 </script>
+<<<<<<< HEAD
+=======
+
+<style>
+.choosed {
+  background-color: #000;
+}
+</style>
+>>>>>>> origin/firebase3

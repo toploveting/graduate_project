@@ -3,17 +3,19 @@
     <div class="q-mt-xl q-ml-lg">
       <h6>登入您的帳號</h6>
       <br>
-      <q-input class="q-pr-lg q-mb-md" v-model="email" type="email" label="電子信箱" :dense="dense" />
-      <q-input class="q-pr-lg q-mb-md" v-model="password" :type="isPwd ? 'password' : 'text'" label="密碼">
+      <q-form @submit="loginWithEmailPassword">
+      <q-input class="q-pr-lg q-mb-md" v-model.trim="email" type="email" label="電子信箱" :dense="dense" />
+      <q-input class="q-pr-lg q-mb-md" v-model.trim="password" :type="isPwde ? 'password' : 'text'" label="密碼">
         <template v-slot:append>
           <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
+            :name="isPwde ? 'visibility_off' : 'visibility'"
             class="cursor-pointer"
-            @click="isPwd = !isPwd"
+            @click="isPwde = !isPwde"
           />
         </template>
       </q-input>
-      <q-btn color="blue-8" unelevated style="width:180px" class="btn q-ma-md" label="登入" @click="confirm = true"/>
+      <q-btn color="blue-8" unelevated style="width:180px" class="btn q-ma-md" label="登入" type="submit"/>
+      </q-form>
       <q-dialog v-model="confirm" persistent>
       <q-card>
         <q-card-section class="row items-center">
@@ -42,20 +44,91 @@
 </style>
 
 <script>
+import firebase from 'firebase/app'
+// import router from '../router'
+// import { mapActions } from 'vuex'
+
 export default {
-  name: 'email',
+  name: 'Email',
   data () {
     return {
+      name: '',
       email: '',
       password: '',
-      alert: false,
-      confirm: false,
-      prompt: false,
-
-      address: ''
+      isPwde: true,
+      errors: [],
+      loading: false,
+      user: ''
     }
   },
+
   methods: {
+    SignUp: function () {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(data => {
+          data.user
+            .updateProfile({
+              displayName: this.name
+            })
+            .then(() => {})
+        })
+        .catch(err => {
+          this.error = err.message
+        })
+    },
+
+    loginWithEmailPassword: function () {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(data => {
+          if (data.user) {
+            this.$router.replace({ path: '/' })
+          }
+        })
+        .catch(err => {
+          this.error = err.message
+        })
+    }
+
+    // async loginWithGoogle () {
+    //   // loading set to true
+    //   this.loading = true
+    //   // clear old errors
+    //   this.errors = []
+    //   try {
+    //     const response = await firebase
+    //       .auth()
+    //       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    //     this.user = response.user
+    //     this.loading = false
+    //     router.push('/')
+    //   } catch (error) {
+    //     this.errors.push(error.message)
+    //     // set loading to false
+    //     this.loading = false
+    //   }
+    // },
+    // async loginWithFacebook () {
+    //   // loading set to true
+    //   this.loading = true
+    //   // clear old errors
+    //   this.errors = []
+    //   try {
+    //     const response = await firebase
+    //       .auth()
+    //       .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    //     this.user = response.user
+    //     this.loading = false
+    //     router.push('/')
+    //   } catch (error) {
+    //     this.errors.push(error.message)
+    //     // set loading to false
+    //     this.loading = false
+    //   }
+    // }
   }
 }
 </script>
