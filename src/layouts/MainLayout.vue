@@ -22,11 +22,6 @@
         content-class="bg-secondary"
         class="drawer"
       >
-<<<<<<< HEAD
-        <q-scroll-area style="height: calc(100% - 100px); margin-top: 100px; border-top: 1px solid #ddd">
-          <q-list padding>
-            <q-item clickable v-ripple>
-=======
         <q-scroll-area style="height: calc(100% - 100px)">
           <q-list padding>
             <q-item clickable v-ripple>
@@ -40,14 +35,6 @@
               </q-item-section>
             </q-item>
             <q-separator color="white"/>
-<<<<<<< HEAD
-            <q-item clickable v-ripple to="list">
->>>>>>> origin/ting
-              <q-item-section>
-                分享時間
-              </q-item-section>
-            </q-item>
-=======
             <q-expansion-item
               label="分享時間" expand-icon-class="text-white">
               <q-item clickable v-ripple to="class">
@@ -75,14 +62,9 @@
                 </q-item-section>
               </q-item>
             </q-expansion-item>
->>>>>>> ting
             <q-expansion-item
               label="建立活動" expand-icon-class="text-white">
-<<<<<<< HEAD
-              <q-item clickable v-ripple>
-=======
               <q-item clickable v-ripple to="activity">
->>>>>>> origin/ting
                 <q-item-section avatar>
                   <q-icon name="star"></q-icon>
                 </q-item-section>
@@ -102,18 +84,6 @@
             </q-item>
           </q-list>
         </q-scroll-area>
-<<<<<<< HEAD
-        <div class="absolute-top id" style="height: 100px">
-          <div class="absolute-bottom">
-            <q-avatar size="56px" class="q-mb-md q-mx-md">
-              <img src="~assets/ying.jpg">
-            </q-avatar>
-            陳穎
-          </div>
-          <q-separator/>
-        </div>
-=======
->>>>>>> origin/ting
       </q-drawer>
     <q-page-container>
       <router-view />
