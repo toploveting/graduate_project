@@ -16,9 +16,6 @@
             </div>
             <div class="col-6"></div>
             <div class="col-4">
-              <q-btn round unelevated size="sm" color="blue-11" class="q-mx-sm">
-                <q-icon name="radio_button_unchecked" color="blue-13"/>
-              </q-btn>
             </div>
           </div>
         <q-item >Action 2</q-item>
