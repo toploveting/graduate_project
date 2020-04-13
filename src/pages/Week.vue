@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md" style="height:100%">
     <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm">
+      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm float-left">
           <img class="q-pb-xs" :src="RetryBtn"/>
       </q-btn>
       <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
@@ -82,11 +82,16 @@
 
 <script>
 import { date } from 'quasar'
-import HeartBtn from '../assets/heartBtn.png'
-import CircleBtn from '../assets/circleBtn.png'
-import TriangleBtn from '../assets/triangleBtn.png'
-import CrossBtn from '../assets/crossBtn.png'
-import EraserBtn from '../assets/eraser.png'
+import HeartBtn0 from '../assets/heartTag.png'
+import HeartBtn1 from '../assets/heartBtn.png'
+import CircleBtn0 from '../assets/circleTag.png'
+import CircleBtn1 from '../assets/circleBtn.png'
+import TriangleBtn0 from '../assets/triangleTag.png'
+import TriangleBtn1 from '../assets/triangleBtn.png'
+import CrossBtn0 from '../assets/crossTag.png'
+import CrossBtn1 from '../assets/crossBtn.png'
+import EraserBtn0 from '../assets/eraserTag.png'
+import EraserBtn1 from '../assets/eraserBtn.png'
 import RetryBtn from '../assets/retry.png'
 import Heart from '../assets/heart.png'
 import Circle from '../assets/circle.png'
@@ -135,11 +140,11 @@ export default {
       Fri: Friday,
       Sat: Saturday,
       Sun: Sunday,
-      HeartBtn: HeartBtn,
-      CircleBtn: CircleBtn,
-      TriangleBtn: TriangleBtn,
-      CrossBtn: CrossBtn,
-      EraserBtn: EraserBtn,
+      HeartBtn: HeartBtn0,
+      CircleBtn: CircleBtn0,
+      TriangleBtn: TriangleBtn0,
+      CrossBtn: CrossBtn0,
+      EraserBtn: EraserBtn0,
       RetryBtn: RetryBtn,
       Heart: Heart,
       Circle: Circle,
@@ -181,15 +186,65 @@ export default {
   methods: {
     take: function (shape) {
       if (shape === 'heart') {
-        flag = 4
+        if (flag !== 4) {
+          flag = 4
+          this.HeartBtn = HeartBtn1
+          this.CircleBtn = CircleBtn0
+          this.TriangleBtn = TriangleBtn0
+          this.CrossBtn = CrossBtn0
+          this.EraserBtn = EraserBtn0
+        } else {
+          this.HeartBtn = HeartBtn0
+          flag = 0
+        }
       } else if (shape === 'circle') {
-        flag = 3
+        if (flag !== 3) {
+          flag = 3
+          this.HeartBtn = HeartBtn0
+          this.CircleBtn = CircleBtn1
+          this.TriangleBtn = TriangleBtn0
+          this.CrossBtn = CrossBtn0
+          this.EraserBtn = EraserBtn0
+        } else {
+          this.CircleBtn = CircleBtn0
+          flag = 0
+        }
       } else if (shape === 'triangle') {
-        flag = 2
+        if (flag !== 2) {
+          flag = 2
+          this.HeartBtn = HeartBtn0
+          this.CircleBtn = CircleBtn0
+          this.TriangleBtn = TriangleBtn1
+          this.CrossBtn = CrossBtn0
+          this.EraserBtn = EraserBtn0
+        } else {
+          this.TriangleBtn = TriangleBtn0
+          flag = 0
+        }
       } else if (shape === 'cross') {
-        flag = 1
+        if (flag !== 1) {
+          flag = 1
+          this.HeartBtn = HeartBtn0
+          this.CircleBtn = CircleBtn0
+          this.TriangleBtn = TriangleBtn0
+          this.CrossBtn = CrossBtn1
+          this.EraserBtn = EraserBtn0
+        } else {
+          this.CrossBtn = CrossBtn0
+          flag = 0
+        }
       } else if (shape === 'eraser') {
-        flag = 0
+        if (flag !== 5) {
+          flag = 5
+          this.HeartBtn = HeartBtn0
+          this.CircleBtn = CircleBtn0
+          this.TriangleBtn = TriangleBtn0
+          this.CrossBtn = CrossBtn0
+          this.EraserBtn = EraserBtn1
+        } else {
+          this.EraserBtn = EraserBtn0
+          flag = 0
+        }
       }
     },
     // stamp2: function (position) {
@@ -214,7 +269,7 @@ export default {
         } else if (flag === 1) {
           this.C11 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C11 = null
         }
       } else if (position === 'c12') {
@@ -230,7 +285,7 @@ export default {
         } else if (flag === 1) {
           this.C12 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C12 = null
         }
       } else if (position === 'c13') {
@@ -246,7 +301,7 @@ export default {
         } else if (flag === 1) {
           this.C13 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C13 = null
         }
       } else if (position === 'c21') {
@@ -262,7 +317,7 @@ export default {
         } else if (flag === 1) {
           this.C21 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C21 = null
         }
       } else if (position === 'c22') {
@@ -278,7 +333,7 @@ export default {
         } else if (flag === 1) {
           this.C22 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C22 = null
         }
       } else if (position === 'c23') {
@@ -294,7 +349,7 @@ export default {
         } else if (flag === 1) {
           this.C23 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C23 = null
         }
       } else if (position === 'c31') {
@@ -310,7 +365,7 @@ export default {
         } else if (flag === 1) {
           this.C31 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C31 = null
         }
       } else if (position === 'c32') {
@@ -326,7 +381,7 @@ export default {
         } else if (flag === 1) {
           this.C32 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C32 = null
         }
       } else if (position === 'c33') {
@@ -342,7 +397,7 @@ export default {
         } else if (flag === 1) {
           this.C33 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C33 = null
         }
       } else if (position === 'c41') {
@@ -358,7 +413,7 @@ export default {
         } else if (flag === 1) {
           this.C41 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C41 = null
         }
       } else if (position === 'c42') {
@@ -374,7 +429,7 @@ export default {
         } else if (flag === 1) {
           this.C42 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C42 = null
         }
       } else if (position === 'c43') {
@@ -390,7 +445,7 @@ export default {
         } else if (flag === 1) {
           this.C43 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C43 = null
         }
       } else if (position === 'c51') {
@@ -406,7 +461,7 @@ export default {
         } else if (flag === 1) {
           this.C51 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C51 = null
         }
       } else if (position === 'c52') {
@@ -422,7 +477,7 @@ export default {
         } else if (flag === 1) {
           this.C52 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C52 = null
         }
       } else if (position === 'c53') {
@@ -438,7 +493,7 @@ export default {
         } else if (flag === 1) {
           this.C53 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C53 = null
         }
       } else if (position === 'c61') {
@@ -454,7 +509,7 @@ export default {
         } else if (flag === 1) {
           this.C61 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C61 = null
         }
       } else if (position === 'c62') {
@@ -470,7 +525,7 @@ export default {
         } else if (flag === 1) {
           this.C62 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C62 = null
         }
       } else if (position === 'c63') {
@@ -486,7 +541,7 @@ export default {
         } else if (flag === 1) {
           this.C63 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C63 = null
         }
       } else if (position === 'c71') {
@@ -502,7 +557,7 @@ export default {
         } else if (flag === 1) {
           this.C71 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C71 = null
         }
       } else if (position === 'c72') {
@@ -518,7 +573,7 @@ export default {
         } else if (flag === 1) {
           this.C72 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C72 = null
         }
       } else if (position === 'c73') {
@@ -534,12 +589,18 @@ export default {
         } else if (flag === 1) {
           this.C73 = this.Cross
           this.isShow = true
-        } else if (flag === 0) {
+        } else if (flag === 5) {
           this.C73 = null
         }
       }
     },
     retry: function () {
+      this.HeartBtn = HeartBtn0
+      this.CircleBtn = CircleBtn0
+      this.TriangleBtn = TriangleBtn0
+      this.CrossBtn = CrossBtn0
+      this.EraserBtn = EraserBtn0
+
       this.C11 = null
       this.C12 = null
       this.C13 = null
@@ -574,8 +635,8 @@ export default {
 </script>
 
 <style lang="scss">
-.btnNav{
-  margin-left: 14%
+.float-left{
+  margin-right: 18%;
 }
 .mb{
   margin-bottom: 4%;

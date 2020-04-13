@@ -9,7 +9,7 @@
     />
    </div>
   <div class="btngroup">
-    <q-btn class="q-pt-sm q-pb-sm q-my-md " color="white" to="week">
+    <q-btn class="q-pt-sm q-pb-sm q-my-md " color="white" to="class">
       <q-img
         alt="bg"
         src="~assets/class.png"
@@ -25,7 +25,7 @@
       <h6 class="class q-pt-sm q-mr-lg">課表</h6>
     </q-btn>
     <br>
-    <q-btn class="q-pt-sm q-pb-sm q-my-md" color="white">
+    <q-btn class="q-pt-sm q-pb-sm q-my-md" color="white" to="week">
       <q-img
         alt="bg"
         src="~assets/week.png"

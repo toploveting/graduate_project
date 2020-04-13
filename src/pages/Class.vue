@@ -13,7 +13,28 @@ export default {
   data () {
     return {
       myName: '請選擇姓名',
-      member: ['Adam', 'Jack', 'Candy', 'Louis', 'Lurry']
+      member: [
+        {
+          name: 'Adam',
+          mail: 'adam@xxx.com'
+        },
+        {
+          name: 'Jack',
+          mail: 'jack@xxx.com'
+        },
+        {
+          name: 'Candy',
+          mail: 'candy@xxx.com'
+        },
+        {
+          name: 'Louis',
+          mail: 'loui@xxx.com'
+        },
+        {
+          name: 'Lurry',
+          mail: 'lurry@xxx.com'
+        }
+      ]
     }
   }
 }
