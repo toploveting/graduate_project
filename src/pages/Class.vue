@@ -12,7 +12,7 @@ export default {
   name: 'app',
   data () {
     return {
-      myName: '請選擇姓名',
+      myName: '請選擇姓名0',
       member: [
         {
           name: 'Adam',
