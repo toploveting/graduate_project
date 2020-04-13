@@ -33,6 +33,13 @@ const routes = [
   },
   {
     path: '/',
+    component: () => import('layouts/blueLayout.vue'),
+    children: [
+      { path: 'week', component: () => import('pages/Week.vue') }
+    ]
+  },
+  {
+    path: '/',
     component: () => import('pages/Form.vue'),
     children: [
       { path: 'form', component: () => import('pages/Form.vue') }

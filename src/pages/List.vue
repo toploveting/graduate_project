@@ -9,7 +9,7 @@
     />
    </div>
   <div class="btngroup">
-    <q-btn class="q-pt-sm q-pb-sm q-my-md " color="white" to="class">
+    <q-btn class="q-pt-sm q-pb-sm q-my-md " color="white" to="week">
       <q-img
         alt="bg"
         src="~assets/class.png"

@@ -16,8 +16,6 @@
 
     <div id="google-signin-button" data-onsuccess="onSignIn" data-theme="dark"></div>
 
-    <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
-
     <q-separator inset class="q-ma-md"/>
     <q-btn to="/email" color="blue-8" unelevated style="width:180px" class="btn q-ma-md">
       <q-icon class="q-pa-md q-pr-lg far fa-envelope" size="sm"/>
