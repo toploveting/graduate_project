@@ -51,6 +51,13 @@ const routes = [
     children: [
       { path: 'activity', component: () => import('pages/Activity.vue') }
     ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/voteLayout.vue'),
+    children: [
+      { path: 'vote', component: () => import('pages/Vote.vue') }
+    ]
   }
 ]
 // Always leave this as last one
