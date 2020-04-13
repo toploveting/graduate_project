@@ -16,6 +16,7 @@
             </div>
             <div class="col-6"></div>
             <div class="col-4">
+              <q-btn></q-btn>
             </div>
           </div>
         <q-item >Action 2</q-item>
