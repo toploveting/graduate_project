@@ -9,14 +9,23 @@
 
       <q-card-actions vertical align="center">
           <div class="row item">
-            <div class="q-mx-sm q-mb-sm col-2" align="center">
+            <div class="q-mx-xs q-mb-sm col-2" align="center">
               <h8 class="dat">星期二</h8>
               <h4 class="date" style="margin-bottom:2pt">13</h4>
               <h8 class="time q-px-sm">早上</h8>
             </div>
-            <div class="col-6"></div>
-            <div class="col-4">
-              <q-btn></q-btn>
+            <div class="q-mx-xs q-mb-sm col-5">
+              <h8>19:00吃飯</h8>
+            </div>
+            <div class="q-mx-xs q-mb-sm col-3">
+              <div class="row-9">
+                <q-btn></q-btn>
+                <q-btn></q-btn>
+                <q-btn></q-btn>
+              </div>
+              <div class="row">
+                  <h9>備註</h9>
+              </div>
             </div>
           </div>
         <q-item >Action 2</q-item>
