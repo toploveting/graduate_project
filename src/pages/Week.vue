@@ -140,12 +140,9 @@ export default {
 }
 
 </script>
-<<<<<<< HEAD
-=======
 
 <style>
 .choosed {
   background-color: #000;
 }
 </style>
->>>>>>> origin/firebase3
