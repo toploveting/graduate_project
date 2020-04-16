@@ -176,6 +176,8 @@ export default {
       // week: [
       //   {
       //     id: 11,
+      //     momth: null,
+      //     date: null,
       //     image: Heart,
       //     status: null,
       //     show: false
