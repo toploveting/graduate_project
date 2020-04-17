@@ -80,7 +80,8 @@ module.exports = function (ctx) {
         'QFooter',
         'QDrawer',
         'QPageSticky',
-        'QPageScroller'
+        'QPageScroller',
+        'QSeparator'
       ],
       directives: [
         'ClosePopup'

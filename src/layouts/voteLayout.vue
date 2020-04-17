@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="hHh lpr fFf" style="height:300px" class="rounded-borders">
-    <q-header elevated class="bg-secondary">
+  <q-layout view="hHh lpr fFf" style="height:300px" class="rounded-borders" f>
+    <q-header class="bg-secondary">
       <q-toolbar>
         <q-btn
           flat
@@ -10,13 +10,24 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <q-toolbar-title class="title">活動名稱</q-toolbar-title>
         <q-btn
-          to="home"
           flat
           dense
           round
-          icon="clear"/>
+          icon="event_note"
+        />
+        <q-toolbar-title class="title text-center">活動名稱</q-toolbar-title>
+        <q-btn
+          flat
+          dense
+          round
+          icon="share"
+        />
+        <q-btn
+          flat
+          dense
+          round
+          label="選擇"/>
       </q-toolbar>
     </q-header>
 
@@ -97,9 +108,6 @@
 </template>
 
 <style lang="scss">
-.title{
-  padding-left: 30%
-}
 .drawer{
   color:white
 }
