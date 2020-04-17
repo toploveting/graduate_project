@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-
     <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm float-left">
-          <img class="q-pb-xs" :src="RetryBtn"/>
+      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
+        <img class="q-pb-xs padding0" :src="RetryBtn">
       </q-btn>
       <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="EraserBtn"/>
+        <img class="q-pb-xs padding0" :src="EraserBtn">
       </q-btn>
-      <q-btn v-on:click="take('heart')"  round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="HeartBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CircleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="TriangleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CrossBtn"/>
-      </q-btn>
+      <div class="Btn">
+        <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="HeartBtn">
+        </q-btn>
+        <p class="btnText pink">偏好</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CircleBtn">
+        </q-btn>
+        <p class="btnText blue">可以</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="TriangleBtn">
+        </q-btn>
+        <p class="btnText yellow">不確定</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CrossBtn">
+        </q-btn>
+        <p class="btnText red">不可以</p>
+      </div>
     </div>
-
-    <q-item v-for="(item, id) in classTable" :key="id" v-on:click="stamp(item)" class="cell" style="" clickable v-ripple><img v-if="item.show" class="shape" :src="item.src"/></q-item>
+    <div class="flex-row">
+      <q-item v-for="item in week" :key="item" class="week" style>{{item.name}}</q-item>
+    </div>
+    <div class="flex-col">
+      <q-item v-for="item in classNo" :key="item" class="cellNo" style>{{item}}</q-item>
+      <q-item
+        v-for="(item, id) in classTable"
+        :key="id"
+        v-on:click="stamp(item)"
+        class="cell"
+        style
+        clickable
+        v-ripple
+      >
+        <img v-if="item.show" class="shape" :src="item.src">
+      </q-item>
+    </div>
   </div>
 </template>
 
@@ -89,6 +115,14 @@ export default {
       //     }
 
       //   ],
+      week: [
+        { name: '週一' },
+        { name: '週二' },
+        { name: '週三' },
+        { name: '週四' },
+        { name: '週五' }
+      ],
+      classNo: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       classTable: [
         {
           id: 11,
@@ -133,13 +167,242 @@ export default {
           src: null,
           status: null,
           show: false
+        },
+        {
+          id: 18,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 19,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 21,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 25,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 26,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 27,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 28,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 29,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 35,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 36,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 37,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 38,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 39,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 45,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 46,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 47,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 48,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 49,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 55,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 56,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 57,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 58,
+          src: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 59,
+          src: null,
+          status: null,
+          show: false
         }
       ]
     }
   },
   methods: {
     retry: function () {
-      for (var i = 0; i < this.classTable.length; i++) { // 循環所有checkbox,添加選中狀態
+      for (var i = 0; i < this.classTable.length; i++) {
+        // 循環所有checkbox,添加選中狀態
         var checkedData = this.classTable[i]
         checkedData.src = null
         checkedData.show = false
@@ -233,21 +496,95 @@ export default {
         item.show = false
       }
     }
-
   }
 }
 </script>
 <style lang="scss">
-.cell{
-  width: 17.5%;
-  height: 15%;
-  padding: 2% 5%;
-  margin: 0% 0%;
-  align-items: center;
-  border: 1px solid #e7e7e7
+.btnNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 3% 0;
+  padding:0 3%;
 }
-.shape{
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+//   padding-right: 2%;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  height: 495px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+//   padding-right: 2%;
+}
+.retryBtn {
+  margin-right: 15%;
+  padding: 0;
+}
+.Btn {
+  align-items: center;
+}
+.btnText {
+  text-align: center;
+  margin: 5% 0 0 0;
+  font-size: 9pt;
+  font-weight: bold;
+}
+.week {
+  width: 17.5%;
+  padding: 0 4%;
+  margin: 0;
+  align-items: center;
+  font-size: 13pt;
+  font-weight: bold;
+  //   border-left: 1px solid #e7e7e7;
+}
+.cellNo {
+  width: 10%;
+  height: 11.1%;
+  margin: 0 0 0 2%;
+  padding: 0 3%;
+  color: #4b71a7;
+  font-size: 13pt;
+  //   font-weight: bold;
+  text-align: center;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  display: flex;
+}
+.cell {
+  width: 17.5%;
+  height: 11.1%;
+  padding: 3% 5%;
+  margin: 0% 0 0 0;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+}
+.shape {
   width: 100%;
   height: 100%;
+}
+.padding0 {
+  padding: 0;
+}
+.pink {
+  color: #d35584;
+}
+.blue {
+  color: #5979c6;
+}
+.yellow {
+  color: #eec22c;
+}
+.red {
+  color: #ce0014;
 }
 </style>

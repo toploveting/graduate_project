@@ -1,24 +1,36 @@
 <template>
-  <div class="q-pa-md" style="height:100%">
+  <div class="q-pa-md padding0" style="height:100%">
     <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm float-left">
-          <img class="q-pb-xs" :src="RetryBtn"/>
+      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
+        <img class="q-pb-xs padding0" :src="RetryBtn">
       </q-btn>
       <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="EraserBtn"/>
+        <img class="q-pb-xs padding0" :src="EraserBtn">
       </q-btn>
-      <q-btn v-on:click="take('heart')"  round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="HeartBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CircleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="TriangleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CrossBtn"/>
-      </q-btn>
+      <div class="Btn">
+        <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="HeartBtn">
+        </q-btn>
+        <p class="btnText pink">偏好</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CircleBtn">
+        </q-btn>
+        <p class="btnText blue">可以</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="TriangleBtn">
+        </q-btn>
+        <p class="btnText yellow">不確定</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CrossBtn">
+        </q-btn>
+        <p class="btnText red">不可以</p>
+      </div>
     </div>
    <div >
     <div class="row day0">
@@ -643,6 +655,27 @@ export default {
 .mb{
   margin-bottom: 4%;
 }
+.btnNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 3% 0;
+  padding:0 3%;
+}
+.retryBtn {
+  margin-right: 15%;
+  padding: 0;
+}
+.Btn {
+  align-items: center;
+}
+.btnText {
+  text-align: center;
+  margin: 5% 0 0 0;
+  font-size: 9pt;
+  font-weight: bold;
+}
 .cell{
   width: 100%;
   height: auto;
@@ -670,5 +703,19 @@ export default {
 .day6{
   border-bottom: 1px solid rgb(216, 216, 216)
 }
-
+.padding0 {
+  padding: 0;
+}
+.pink {
+  color: #d35584;
+}
+.blue {
+  color: #5979c6;
+}
+.yellow {
+  color: #eec22c;
+}
+.red {
+  color: #ce0014;
+}
 </style>
