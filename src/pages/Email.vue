@@ -84,50 +84,13 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(data => {
           if (data.user) {
-            this.$router.replace({ path: '/' })
+            this.$router.replace('/home')
           }
         })
         .catch(err => {
           this.error = err.message
         })
     }
-
-    // async loginWithGoogle () {
-    //   // loading set to true
-    //   this.loading = true
-    //   // clear old errors
-    //   this.errors = []
-    //   try {
-    //     const response = await firebase
-    //       .auth()
-    //       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    //     this.user = response.user
-    //     this.loading = false
-    //     router.push('/')
-    //   } catch (error) {
-    //     this.errors.push(error.message)
-    //     // set loading to false
-    //     this.loading = false
-    //   }
-    // },
-    // async loginWithFacebook () {
-    //   // loading set to true
-    //   this.loading = true
-    //   // clear old errors
-    //   this.errors = []
-    //   try {
-    //     const response = await firebase
-    //       .auth()
-    //       .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-    //     this.user = response.user
-    //     this.loading = false
-    //     router.push('/')
-    //   } catch (error) {
-    //     this.errors.push(error.message)
-    //     // set loading to false
-    //     this.loading = false
-    //   }
-    // }
   }
 }
 </script>

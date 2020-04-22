@@ -32,63 +32,59 @@
         <p class="btnText red">不可以</p>
       </div>
     </div>
-   <div >
+
     <div class="row day0">
-      <div class="date0 col-3"><h6 class="text-center q-my-xs bg-secondary" style="color:white">{{Month+'月'}}</h6 ><p class="text-center">{{Mon+'日-'+Sun+'日'}}</p></div>
-      <div class="morning0 col-3 text-center q-pt-md"><img class="q-pb-xs" src="~assets/morning.png"/><p>早上</p></div>
-      <div class="noon0 col-3 text-center q-pt-md"><img class="q-pb-xs" src="~assets/noon.png"/><p>中午</p></div>
-      <div class="night0 col-3 text-center q-pt-md"><img class="q-pb-sm" src="~assets/night.png"/><p>晚上</p></div>
+      <div class="calendar">
+        <h6 class="text-center q-my-xs bg-secondary month" style="color:white">{{Month+'月'}}</h6>
+        <p class="text-center margin0">{{Mon+'日-'+Sun+'日'}}</p>
+      </div>
+      <div class="flex-timeline">
+        <div class="text-center q-pt-md">
+          <img class="q-pb-xs" src="~assets/morning.png">
+          <p>早上</p>
+        </div>
+        <div class="text-center q-pt-md">
+          <img class="q-pb-xs" src="~assets/noon.png">
+          <p>中午</p>
+        </div>
+        <div class="text-center q-pt-md">
+          <img class="q-pb-xs" src="~assets/afternoon.png">
+          <p>下午</p>
+        </div>
+        <div class="text-center q-pt-md">
+          <img class="q-pb-sm" src="~assets/night.png">
+          <p>晚上</p>
+        </div>
+      </div>
     </div>
 
-    <div class="row day1">
-      <div class="date1 col-3"><h5 class="text-center q-my-xs">{{Mon}}</h5 ><p class="text-center mb">星期一</p></div>
-      <q-item v-on:click="stamp('c11')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C11"/></div></q-item>
-      <q-item v-on:click="stamp('c12')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C12"/></div></q-item>
-      <q-item v-on:click="stamp('c13')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C13"/></div></q-item>
-    </div>
+    <div class="flex-col">
+      <q-item
+        v-for="item in week"
+        :key="item"
+        class="date"
+        :class="{ NoBorderBottom: item.noBottom }"
+      >
+        <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
 
-    <div class="row day2">
-      <div class="date2 col-3"><h5 class="text-center q-my-xs">{{Tue}}</h5 ><p class="text-center mb">星期二</p></div>
-      <q-item v-on:click="stamp('c21')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C21"/></div></q-item>
-      <q-item v-on:click="stamp('c22')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C22"/></div></q-item>
-      <q-item v-on:click="stamp('c23')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C23"/></div></q-item>
-    </div>
+        <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+      </q-item>
+      <div class="flex-date">
+        <q-item
+          v-for="(item, id) in date"
+          :key="id"
+          v-on:click="stamp(item)"
+          class="cell"
+          :class="{ NoBorderBottom: item.noBottom }"
+          style
+          clickable
+          v-ripple
+        >
 
-    <div class="row day3">
-      <div class="date3 col-3"><h5 class="text-center q-my-xs">{{Wed}}</h5 ><p class="text-center mb">星期三</p></div>
-      <q-item v-on:click="stamp('c31')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C31"/></div></q-item>
-      <q-item v-on:click="stamp('c32')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C32"/></div></q-item>
-      <q-item v-on:click="stamp('c33')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C33"/></div></q-item>
+          <img v-if="item.show" class="shape" :src="item.src">
+        </q-item>
+      </div>
     </div>
-
-    <div class="row day4">
-      <div class="date4 col-3"><h5 class="text-center q-my-xs">{{Thu}}</h5 ><p class="text-center mb">星期四</p></div>
-      <q-item v-on:click="stamp('c41')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C41"/></div></q-item>
-      <q-item v-on:click="stamp('c42')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C42"/></div></q-item>
-      <q-item v-on:click="stamp('c43')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C43"/></div></q-item>
-    </div>
-
-    <div class="row day5">
-      <div class="date5 col-3"><h5 class="text-center q-my-xs">{{Fri}}</h5 ><p class="text-center mb">星期五</p></div>
-      <q-item v-on:click="stamp('c51')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C51"/></div></q-item>
-      <q-item v-on:click="stamp('c52')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C52"/></div></q-item>
-      <q-item v-on:click="stamp('c53')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C53"/></div></q-item>
-    </div>
-
-    <div class="row day6">
-      <div class="date6 col-3"><h5 class="text-center q-my-xs" style="color:rgb(219,13,24)">{{Sat}}</h5 ><p class="text-center mb" style="color:rgb(219,13,24)">星期六</p></div>
-      <q-item v-on:click="stamp('c61')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C61"/></div></q-item>
-      <q-item v-on:click="stamp('c62')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C62"/></div></q-item>
-      <q-item v-on:click="stamp('c63')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C63"/></div></q-item>
-    </div>
-
-    <div class="row day7">
-      <div class="date7 col-3"><h5 class="text-center q-my-xs" style="color:rgb(219,13,24)">{{Sun}}</h5 ><p class="text-center mb" style="color:rgb(219,13,24)">星期日</p></div>
-      <q-item v-on:click="stamp('c71')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C71"/></div></q-item>
-      <q-item v-on:click="stamp('c72')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C72"/></div></q-item>
-      <q-item v-on:click="stamp('c73')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C73"/></div></q-item>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -111,12 +107,34 @@ import Triangle from '../assets/triangle.png'
 import Cross from '../assets/cross.png'
 
 let flag = 0
-let C11, C12, C13, C21, C22, C23, C31, C32, C33, C41, C42, C43, C51, C52, C53, C61, C62, C63, C71, C72, C73
+let C11,
+  C12,
+  C13,
+  C21,
+  C22,
+  C23,
+  C31,
+  C32,
+  C33,
+  C41,
+  C42,
+  C43,
+  C51,
+  C52,
+  C53,
+  C61,
+  C62,
+  C63,
+  C71,
+  C72,
+  C73
 let newDate = new Date()
 const timeStamp = Date.now()
 const Month = date.formatDate(timeStamp, 'M')
 // const Today = newDate
 const day = date.getDayOfWeek(newDate)
+
+// const Today = date.formatDate(newDate, 'D')
 
 newDate = date.subtractFromDate(newDate, { days: day })
 
@@ -183,21 +201,297 @@ export default {
       C63: C63,
       C71: C71,
       C72: C72,
-      C73: C73
+      C73: C73,
 
-      // week: [
-      //   {
-      //     id: 11,
-      //     momth: null,
-      //     date: null,
-      //     image: Heart,
-      //     status: null,
-      //     show: false
-      //   }
-      // ]
+      week: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday,
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday,
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      date: [
+        {
+          id: 11,
+          momth: Month,
+          date: Monday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          momth: Month,
+          date: Monday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          momth: Month,
+          date: Monday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          momth: Month,
+          date: Monday,
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ]
     }
   },
   methods: {
+    retry: function () {
+      for (var i = 0; i < this.date.length; i++) {
+        // 循環所有checkbox,添加選中狀態
+        var checkedData = this.date[i]
+        checkedData.src = null
+        checkedData.show = false
+      }
+    },
     take: function (shape) {
       if (shape === 'heart') {
         if (flag !== 4) {
@@ -261,398 +555,38 @@ export default {
         }
       }
     },
-    // stamp2: function (position) {
-    //   if (position === this.week.id) {
-    //     if (flag === 4) {
-    //       this.week.image = this.Heart
-    //       this.isShow = true
-    //     }
-    //   }
-    // },
-    stamp: function (position) {
-      if (position === 'c11') {
-        if (flag === 4) {
-          this.C11 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C11 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C11 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C11 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C11 = null
-        }
-      } else if (position === 'c12') {
-        if (flag === 4) {
-          this.C12 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C12 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C12 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C12 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C12 = null
-        }
-      } else if (position === 'c13') {
-        if (flag === 4) {
-          this.C13 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C13 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C13 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C13 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C13 = null
-        }
-      } else if (position === 'c21') {
-        if (flag === 4) {
-          this.C21 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C21 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C21 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C21 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C21 = null
-        }
-      } else if (position === 'c22') {
-        if (flag === 4) {
-          this.C22 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C22 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C22 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C22 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C22 = null
-        }
-      } else if (position === 'c23') {
-        if (flag === 4) {
-          this.C23 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C23 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C23 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C23 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C23 = null
-        }
-      } else if (position === 'c31') {
-        if (flag === 4) {
-          this.C31 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C31 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C31 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C31 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C31 = null
-        }
-      } else if (position === 'c32') {
-        if (flag === 4) {
-          this.C32 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C32 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C32 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C32 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C32 = null
-        }
-      } else if (position === 'c33') {
-        if (flag === 4) {
-          this.C33 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C33 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C33 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C33 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C33 = null
-        }
-      } else if (position === 'c41') {
-        if (flag === 4) {
-          this.C41 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C41 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C41 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C41 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C41 = null
-        }
-      } else if (position === 'c42') {
-        if (flag === 4) {
-          this.C42 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C42 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C42 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C42 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C42 = null
-        }
-      } else if (position === 'c43') {
-        if (flag === 4) {
-          this.C43 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C43 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C43 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C43 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C43 = null
-        }
-      } else if (position === 'c51') {
-        if (flag === 4) {
-          this.C51 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C51 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C51 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C51 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C51 = null
-        }
-      } else if (position === 'c52') {
-        if (flag === 4) {
-          this.C52 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C52 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C52 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C52 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C52 = null
-        }
-      } else if (position === 'c53') {
-        if (flag === 4) {
-          this.C53 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C53 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C53 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C53 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C53 = null
-        }
-      } else if (position === 'c61') {
-        if (flag === 4) {
-          this.C61 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C61 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C61 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C61 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C61 = null
-        }
-      } else if (position === 'c62') {
-        if (flag === 4) {
-          this.C62 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C62 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C62 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C62 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C62 = null
-        }
-      } else if (position === 'c63') {
-        if (flag === 4) {
-          this.C63 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C63 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C63 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C63 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C63 = null
-        }
-      } else if (position === 'c71') {
-        if (flag === 4) {
-          this.C71 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C71 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C71 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C71 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C71 = null
-        }
-      } else if (position === 'c72') {
-        if (flag === 4) {
-          this.C72 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C72 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C72 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C72 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C72 = null
-        }
-      } else if (position === 'c73') {
-        if (flag === 4) {
-          this.C73 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C73 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C73 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C73 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C73 = null
-        }
+    stamp: function (item) {
+      if (flag === 4) {
+        item.src = Heart
+        item.status = 4
+        item.show = true
+      } else if (flag === 3) {
+        item.src = Circle
+        item.status = 3
+        item.show = true
+      } else if (flag === 2) {
+        item.src = Triangle
+        item.status = 2
+        item.show = true
+      } else if (flag === 1) {
+        item.src = Cross
+        item.status = 1
+        item.show = true
+      } else if (flag === 5) {
+        item.src = null
+        item.status = 5
+        item.show = false
       }
-    },
-    retry: function () {
-      this.HeartBtn = HeartBtn0
-      this.CircleBtn = CircleBtn0
-      this.TriangleBtn = TriangleBtn0
-      this.CrossBtn = CrossBtn0
-      this.EraserBtn = EraserBtn0
-
-      this.C11 = null
-      this.C12 = null
-      this.C13 = null
-
-      this.C21 = null
-      this.C22 = null
-      this.C23 = null
-
-      this.C31 = null
-      this.C32 = null
-      this.C33 = null
-
-      this.C41 = null
-      this.C42 = null
-      this.C43 = null
-
-      this.C51 = null
-      this.C52 = null
-      this.C53 = null
-
-      this.C61 = null
-      this.C62 = null
-      this.C63 = null
-
-      this.C71 = null
-      this.C72 = null
-      this.C73 = null
     }
   }
 }
-
 </script>
 
 <style lang="scss">
-.float-left{
+.float-left {
   margin-right: 18%;
 }
-.mb{
+.mb {
   margin-bottom: 4%;
 }
 .btnNav {
@@ -661,7 +595,7 @@ export default {
   justify-content: space-around;
   align-items: flex-start;
   margin: 3% 0;
-  padding:0 3%;
+  padding: 0 3%;
 }
 .retryBtn {
   margin-right: 15%;
@@ -676,35 +610,131 @@ export default {
   font-size: 9pt;
   font-weight: bold;
 }
-.cell{
-  width: 100%;
-  height: auto;
-  padding: 25%;
-  margin: -3% 0%;
+.calendar{
+  width: 24%;
+  padding: 2% 0;
 }
-.from{
+.flex-timeline {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.month {
+  width: 80%;
+  border-radius: 5pt;
+  align-items: center;
+  margin-left: 10%;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+
+  height: 466px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  //   padding-right: 2%;
+}
+.flex-date {
+  display: flex;
+  flex-direction: row;
+  width: 285px;
+  height: 465px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.date {
+  width: 22%;
+  height: 14.26%;
+  margin: 0 0 0 2%;
+  padding: 0 3%;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dateNo {
+  width: 100%;
+  color: #363636;
+  font-size: 20pt;
+  // font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+.dateNoRed {
+  width: 100%;
+  color: #db0d18;
+  font-size: 20pt;
+  // font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+.dateName {
+  width: 100%;
+  color: #707070;
+  font-size: 10pt;
+  // font-weight: bold;
+  text-align: center;
+}
+.dateNameRed {
+  width: 100%;
+  color: #db0d18;
+  font-size: 10pt;
+  // font-weight: bold;
+  text-align: center;
+}
+.cell {
+  width: 25%;
+  height: 14.3%;
+  padding: 5% 5.4%;
+  margin: 0% 0 0 0;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+}
+.shape {
+  width: 100%;
+  height: 100%;
+}
+// .cell {
+//   width: 100%;
+//   height: auto;
+//   padding: 25%;
+//   margin: -3% 0%;
+// }
+.from {
   height: 500px;
 }
-.day1{
+.day1 {
   border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day2{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day2 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day3{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day3 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day4{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day4 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day5{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day5 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day6{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day6 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
 .padding0 {
   padding: 0;
+}
+.margin0{
+  margin: 0;
+}
+.NoBorderBottom {
+  border-bottom: 0px solid transparent;
 }
 .pink {
   color: #d35584;

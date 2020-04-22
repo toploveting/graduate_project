@@ -562,7 +562,7 @@ export default {
 .cell {
   width: 17.5%;
   height: 11.1%;
-  padding: 3% 5%;
+  padding: 3.6% 5%;
   margin: 0% 0 0 0;
   align-items: center;
   border-bottom: 1px solid #e7e7e7;

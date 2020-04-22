@@ -29,6 +29,14 @@ const routes = [
     component: () => import('layouts/blueLayout.vue'),
     children: [
       { path: 'class', component: () => import('pages/Class.vue') }
+
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/blueLayout.vue'),
+    children: [
+      { path: 'test', component: () => import('pages/APItest.vue') }
     ]
   },
   {
