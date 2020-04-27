@@ -11,6 +11,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-btn
+          to="vote_r"
           flat
           dense
           round

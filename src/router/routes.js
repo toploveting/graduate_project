@@ -63,7 +63,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/voteLayout.vue'),
     children: [
-      { path: 'vote', component: () => import('pages/Vote.vue') }
+      { path: 'vote', component: () => import('pages/Vote.vue') },
+      { path: 'vote_r', component: () => import('pages/VoteR.vue') }
     ]
   }
 ]

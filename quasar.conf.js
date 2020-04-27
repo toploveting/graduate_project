@@ -81,14 +81,15 @@ module.exports = function (ctx) {
         'QDrawer',
         'QPageSticky',
         'QPageScroller',
-        'QSeparator'
+        'QSeparator',
+        'QLinearProgress'
       ],
       directives: [
         'ClosePopup'
       ],
 
       // Quasar plugins
-      plugins: []
+      plugins: ['BottomSheet']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
