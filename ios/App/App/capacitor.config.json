@@ -1,0 +1,8 @@
+{
+  "appId": "com.example.app",
+  "appName": "Join Me",
+  "bundledWebRuntime": true,
+  "npmClient": "npm",
+  "webDir": "src",
+  "cordova": {}
+}

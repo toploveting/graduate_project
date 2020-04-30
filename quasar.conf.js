@@ -9,7 +9,8 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     boot: [
-      'firebase'
+      'firebase',
+      'capacitor'
     ],
     css: [
       'app.scss'
@@ -85,7 +86,8 @@ module.exports = function (ctx) {
         'QLinearProgress'
       ],
       directives: [
-        'ClosePopup'
+        'ClosePopup',
+        'TouchSwipe'
       ],
 
       // Quasar plugins

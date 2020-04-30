@@ -56,6 +56,8 @@ import createApp from './app.js'
 
 import qboot_Bootfirebase from 'boot/firebase'
 
+import qboot_Bootcapacitor from 'boot/capacitor'
+
 
 
 
@@ -86,7 +88,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootfirebase]
+  const bootFiles = [qboot_Bootfirebase,qboot_Bootcapacitor]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

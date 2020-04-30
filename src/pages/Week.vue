@@ -1,87 +1,534 @@
 <template>
-  <div class="q-pa-md" style="height:100%">
+  <div class="q-pa-md padding0" style="height:100%">
     <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm float-left">
-          <img class="q-pb-xs" :src="RetryBtn"/>
+      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
+        <img class="q-pb-xs padding0" :src="RetryBtn">
       </q-btn>
+
       <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="EraserBtn"/>
+        <img class="q-pb-xs padding0" :src="EraserBtn">
       </q-btn>
-      <q-btn v-on:click="take('heart')"  round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="HeartBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CircleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="TriangleBtn"/>
-      </q-btn>
-      <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs" :src="CrossBtn"/>
-      </q-btn>
-    </div>
-   <div >
-    <div class="row day0">
-      <div class="date0 col-3"><h6 class="text-center q-my-xs bg-secondary" style="color:white">{{Month+'月'}}</h6 ><p class="text-center">{{Mon+'日-'+Sun+'日'}}</p></div>
-      <div class="morning0 col-3 text-center q-pt-md"><img class="q-pb-xs" src="~assets/morning.png"/><p>早上</p></div>
-      <div class="noon0 col-3 text-center q-pt-md"><img class="q-pb-xs" src="~assets/noon.png"/><p>中午</p></div>
-      <div class="night0 col-3 text-center q-pt-md"><img class="q-pb-sm" src="~assets/night.png"/><p>晚上</p></div>
-    </div>
-
-    <div class="row day1">
-      <div class="date1 col-3"><h5 class="text-center q-my-xs">{{Mon}}</h5 ><p class="text-center mb">星期一</p></div>
-      <q-item v-on:click="stamp('c11')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C11"/></div></q-item>
-      <q-item v-on:click="stamp('c12')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C12"/></div></q-item>
-      <q-item v-on:click="stamp('c13')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C13"/></div></q-item>
+      <div class="Btn">
+        <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="HeartBtn">
+        </q-btn>
+        <p class="btnText pink">偏好</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CircleBtn">
+        </q-btn>
+        <p class="btnText blue">可以</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="TriangleBtn">
+        </q-btn>
+        <p class="btnText yellow">不確定</p>
+      </div>
+      <div class="Btn">
+        <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
+          <img class="q-pb-xs padding0" :src="CrossBtn">
+        </q-btn>
+        <p class="btnText red">不可以</p>
+      </div>
     </div>
 
-    <div class="row day2">
-      <div class="date2 col-3"><h5 class="text-center q-my-xs">{{Tue}}</h5 ><p class="text-center mb">星期二</p></div>
-      <q-item v-on:click="stamp('c21')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C21"/></div></q-item>
-      <q-item v-on:click="stamp('c22')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C22"/></div></q-item>
-      <q-item v-on:click="stamp('c23')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C23"/></div></q-item>
-    </div>
+    <q-card
+      v-touch-swipe.mouse.horizontal="handleSwipe"
+      class="no-shadow relative-position flex-center"
+    >
+      <div class="row day0">
+        <div class="calendar">
+          <h6 class="text-center q-my-xs bg-secondary month" style="color:white">{{Month+'月'}}</h6>
+          <p class="text-center margin0">{{Mon+'日-'+Sun+'日'}}</p>
+        </div>
+        <div class="flex-timeline">
+          <div class="text-center q-pt-md">
+            <img class="q-pb-xs" src="~assets/morning.png">
+            <p>早上</p>
+          </div>
+          <div class="text-center q-pt-md">
+            <img class="q-pb-xs" src="~assets/noon.png">
+            <p>中午</p>
+          </div>
+          <div class="text-center q-pt-md">
+            <img class="q-pb-xs" src="~assets/afternoon.png">
+            <p>下午</p>
+          </div>
+          <div class="text-center q-pt-md">
+            <img class="q-pb-sm" src="~assets/night.png">
+            <p>晚上</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="row day3">
-      <div class="date3 col-3"><h5 class="text-center q-my-xs">{{Wed}}</h5 ><p class="text-center mb">星期三</p></div>
-      <q-item v-on:click="stamp('c31')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C31"/></div></q-item>
-      <q-item v-on:click="stamp('c32')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C32"/></div></q-item>
-      <q-item v-on:click="stamp('c33')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C33"/></div></q-item>
-    </div>
+      <!-- <q-btn @click="next" label="Next" class="btn btn-default"></q-btn> -->
+      <!-- <p>{{info}}</p> -->
 
-    <div class="row day4">
-      <div class="date4 col-3"><h5 class="text-center q-my-xs">{{Thu}}</h5 ><p class="text-center mb">星期四</p></div>
-      <q-item v-on:click="stamp('c41')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C41"/></div></q-item>
-      <q-item v-on:click="stamp('c42')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C42"/></div></q-item>
-      <q-item v-on:click="stamp('c43')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C43"/></div></q-item>
-    </div>
+      <swipe ref="mySwipe" style="max-width:500px;margin:0 auto">
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week0"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
 
-    <div class="row day5">
-      <div class="date5 col-3"><h5 class="text-center q-my-xs">{{Fri}}</h5 ><p class="text-center mb">星期五</p></div>
-      <q-item v-on:click="stamp('c51')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C51"/></div></q-item>
-      <q-item v-on:click="stamp('c52')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C52"/></div></q-item>
-      <q-item v-on:click="stamp('c53')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C53"/></div></q-item>
-    </div>
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
 
-    <div class="row day6">
-      <div class="date6 col-3"><h5 class="text-center q-my-xs" style="color:rgb(219,13,24)">{{Sat}}</h5 ><p class="text-center mb" style="color:rgb(219,13,24)">星期六</p></div>
-      <q-item v-on:click="stamp('c61')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C61"/></div></q-item>
-      <q-item v-on:click="stamp('c62')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C62"/></div></q-item>
-      <q-item v-on:click="stamp('c63')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C63"/></div></q-item>
-    </div>
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date0"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
 
-    <div class="row day7">
-      <div class="date7 col-3"><h5 class="text-center q-my-xs" style="color:rgb(219,13,24)">{{Sun}}</h5 ><p class="text-center mb" style="color:rgb(219,13,24)">星期日</p></div>
-      <q-item v-on:click="stamp('c71')" class="morning1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C71"/></div></q-item>
-      <q-item v-on:click="stamp('c72')" class="noon1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C72"/></div></q-item>
-      <q-item v-on:click="stamp('c73')" class="night1 col-3" style="border-left: 1px solid rgb(216,216,216)" clickable v-ripple><div v-if="isShow"><img class="cell" :src="C73"/></div></q-item>
-    </div>
-  </div>
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week1"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date1"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week2"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date2"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week3"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date3"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week4"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date4"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week5"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date5"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week6"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date6"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week7"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date7"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week8"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date8"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week9"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date9"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in week10"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date10"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in lastweek3"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date11"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in lastweek2"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date12"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+
+        <swipe-item>
+          <div class="flex-col">
+            <div class="aa">
+              <q-item
+                v-for="item in lastweek1"
+                :key="item"
+                class="date"
+                :class="{ NoBorderBottom: item.noBottom }"
+              >
+                <h5 class="dateNo" :class="{ dateNoRed: item.isRed }">{{item.date}}</h5>
+
+                <div class="dateName" :class="{ dateNameRed: item.isRed }">{{item.name}}</div>
+              </q-item>
+            </div>
+
+            <div class="flex-date">
+              <q-item
+                v-for="(item, id) in date13"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </div>
+        </swipe-item>
+      </swipe>
+    </q-card>
   </div>
 </template>
 
 <script>
+// import firebase from 'firebase'
+// import { db } from '../boot/firebase.js'
+import Vue from 'vue'
+import VSwipe from 'vswipe'
+Vue.use(VSwipe)
+
 import { date } from 'quasar'
+
+// Photo url
 import HeartBtn0 from '../assets/heartTag.png'
 import HeartBtn1 from '../assets/heartBtn.png'
 import CircleBtn0 from '../assets/circleTag.png'
@@ -99,47 +546,93 @@ import Triangle from '../assets/triangle.png'
 import Cross from '../assets/cross.png'
 
 let flag = 0
-let C11, C12, C13, C21, C22, C23, C31, C32, C33, C41, C42, C43, C51, C52, C53, C61, C62, C63, C71, C72, C73
+var weekID = 150
+var Month = 1
+var Monday = new Array(300)
+var Tuesday = new Array(300)
+var Wednesday = new Array(300)
+var Thursday = new Array(300)
+var Friday = new Array(300)
+var Saturday = new Array(300)
+var Sunday = new Array(300)
+
 let newDate = new Date()
-const timeStamp = Date.now()
-const Month = date.formatDate(timeStamp, 'M')
+// const timeStamp = Date.now()
+// let formattedString = date.formatDate(timeStamp, 'YYYYMMDD')
+// const Year = date.formatDate(timeStamp, 'Y')
+Month = date.formatDate(newDate, 'M')
 // const Today = newDate
 const day = date.getDayOfWeek(newDate)
+
+// const Today = date.formatDate(newDate, 'D')
 
 newDate = date.subtractFromDate(newDate, { days: day })
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Monday = date.formatDate(newDate, 'D')
+newDate = date.subtractFromDate(newDate, { days: 1050 })
+let MondayF = newDate
+for (let i = 0; i < 300; i++) {
+  Monday[i] = date.formatDate(MondayF, 'D')
+  MondayF = date.addToDate(MondayF, { days: 7 })
+}
+// const Monday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Tuesday = date.formatDate(newDate, 'D')
+let TuesdayF = newDate
+for (let i = 0; i < 300; i++) {
+  Tuesday[i] = date.formatDate(TuesdayF, 'D')
+  TuesdayF = date.addToDate(TuesdayF, { days: 7 })
+}
+// const Tuesday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Wednesday = date.formatDate(newDate, 'D')
+let WednesdayF = newDate
+for (let i = 0; i < 300; i++) {
+  Wednesday[i] = date.formatDate(WednesdayF, 'D')
+  WednesdayF = date.addToDate(WednesdayF, { days: 7 })
+}
+// const Wednesday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Thursday = date.formatDate(newDate, 'D')
+let ThursdayF = newDate
+for (let i = 0; i < 300; i++) {
+  Thursday[i] = date.formatDate(ThursdayF, 'D')
+  ThursdayF = date.addToDate(ThursdayF, { days: 7 })
+}
+// const Thursday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Friday = date.formatDate(newDate, 'D')
+let FridayF = newDate
+for (let i = 0; i < 300; i++) {
+  Friday[i] = date.formatDate(FridayF, 'D')
+  FridayF = date.addToDate(FridayF, { days: 7 })
+}
+// const Friday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Saturday = date.formatDate(newDate, 'D')
+let SaturdayF = newDate
+for (let i = 0; i < 300; i++) {
+  Saturday[i] = date.formatDate(SaturdayF, 'D')
+  SaturdayF = date.addToDate(SaturdayF, { days: 7 })
+}
+// const Saturday = date.formatDate(newDate, 'D')
 
 newDate = date.addToDate(newDate, { days: 1 })
-const Sunday = date.formatDate(newDate, 'D')
+let SundayF = newDate
+for (let i = 0; i < 300; i++) {
+  Sunday[i] = date.formatDate(SundayF, 'D')
+  SundayF = date.addToDate(SundayF, { days: 7 })
+}
+// const Sunday = date.formatDate(newDate, 'D')
 
 export default {
   data: function () {
     return {
+      info: null,
+      weekID: weekID,
       Month: Month,
-      Mon: Monday,
-      Tue: Tuesday,
-      Wed: Wednesday,
-      Thu: Thursday,
-      Fri: Friday,
-      Sat: Saturday,
-      Sun: Sunday,
+      Mon: Monday[weekID],
+      Sun: Sunday[weekID],
       HeartBtn: HeartBtn0,
       CircleBtn: CircleBtn0,
       TriangleBtn: TriangleBtn0,
@@ -151,39 +644,4375 @@ export default {
       Triangle: Triangle,
       Cross: Cross,
       isShow: false,
-      C11: C11,
-      C12: C12,
-      C13: C13,
-      C21: C21,
-      C22: C22,
-      C23: C23,
-      C31: C31,
-      C32: C32,
-      C33: C33,
-      C41: C41,
-      C42: C42,
-      C43: C43,
-      C51: C51,
-      C52: C52,
-      C53: C53,
-      C61: C61,
-      C62: C62,
-      C63: C63,
-      C71: C71,
-      C72: C72,
-      C73: C73
 
-      // week: [
-      //   {
-      //     id: 11,
-      //     image: Heart,
-      //     status: null,
-      //     show: false
-      //   }
-      // ]
+      lastweek3: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[147]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[147]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[147]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[147]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[147]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[147],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[147],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      lastweek2: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[148]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[148]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[148]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[148]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[148]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[148],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[148],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+
+      lastweek1: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[149]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[149]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[149]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[149]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[149]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[149],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[149],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+
+      week0: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[150]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[150]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[150]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[150]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[150]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[150],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[150],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+
+      week1: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[151]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[151]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[151]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[151]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[151]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[151],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[151],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week2: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[152]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[152]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[152]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[152]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[152]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[152],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[152],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week3: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[153]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[153]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[153]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[153]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[153]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[153],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[153],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week4: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[154]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[154]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[154]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[154]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[154]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[154],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[154],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week5: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[155]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[155]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[155]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[155]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[155]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[155],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[155],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week6: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[156]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[156]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[156]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[156]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[156]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[156],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[156],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week7: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[157]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[157]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[157]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[157]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[157]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[157],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[157],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week8: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[158]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[158]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[158]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[158]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[158]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[158],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[158],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week9: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[159]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[159]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[159]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[159]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[159]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[159],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[159],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+      week10: [
+        {
+          id: 1,
+          name: '星期一',
+          momth: Month,
+          date: Monday[160]
+        },
+        {
+          id: 2,
+          name: '星期二',
+          momth: Month,
+          date: Tuesday[160]
+        },
+        {
+          id: 3,
+          name: '星期三',
+          momth: Month,
+          date: Wednesday[160]
+        },
+        {
+          id: 4,
+          name: '星期四',
+          momth: Month,
+          date: Thursday[160]
+        },
+        {
+          id: 5,
+          name: '星期五',
+          momth: Month,
+          date: Friday[160]
+        },
+        {
+          id: 6,
+          name: '星期六',
+          momth: Month,
+          date: Saturday[160],
+          isRed: true
+        },
+        {
+          id: 7,
+          name: '星期日',
+          momth: Month,
+          date: Sunday[160],
+          isRed: true,
+          noBottom: true
+        }
+      ],
+
+      date0: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date1: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date2: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date3: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date4: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date5: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date6: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date7: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date8: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date9: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date10: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date11: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date12: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ],
+      date13: [
+        {
+          id: 11,
+          name: 'Morning',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 12,
+          name: 'Noon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 13,
+          name: 'Afternoon',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 14,
+          name: 'Night',
+          momth: Month,
+          date: Monday[0],
+          image: null,
+          status: null,
+          show: false
+        },
+
+        {
+          id: 21,
+          name: 'Morning',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 22,
+          name: 'Noon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 23,
+          name: 'Afternoon',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 24,
+          name: 'Night',
+          momth: Month,
+          date: Tuesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 31,
+          name: 'Morning',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 32,
+          name: 'Noon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 33,
+          name: 'Afternoon',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 34,
+          name: 'Night',
+          momth: Month,
+          date: Wednesday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 41,
+          name: 'Morning',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 42,
+          name: 'Noon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 43,
+          name: 'Afternoon',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 44,
+          name: 'Night',
+          momth: Month,
+          date: Thursday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 51,
+          ame: 'Morning',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 52,
+          name: 'Noon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 53,
+          name: 'Afternoon',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 54,
+          name: 'Night',
+          momth: Month,
+          date: Friday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 61,
+          name: 'Morning',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 62,
+          name: 'Noon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 63,
+          name: 'Afternoon',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 64,
+          name: 'Night',
+          momth: Month,
+          date: Saturday,
+          image: null,
+          status: null,
+          show: false
+        },
+        {
+          id: 71,
+          name: 'Morning',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 72,
+          name: 'Noon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 73,
+          name: 'Afternoon',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        },
+        {
+          id: 74,
+          name: 'Night',
+          momth: Month,
+          date: Sunday,
+          image: null,
+          status: null,
+          show: false,
+          noBottom: true
+        }
+      ]
     }
   },
   methods: {
+    handleSwipe ({ direction }) {
+      this.info = direction
+      if (direction === 'left') {
+        weekID += 1
+        this.Mon = Monday[weekID]
+        if (Monday[weekID] < 8) {
+          if (this.Month === 12) {
+            Month = 1
+          } else {
+            Month = Month * 1 + 1
+            this.Month = Month
+          }
+        }
+        this.Sun = Sunday[weekID]
+        this.$refs.mySwipe.next()
+        console.log(weekID)
+      } else if (direction === 'right') {
+        weekID -= 1
+        this.Mon = Monday[weekID]
+        this.Sun = Sunday[weekID]
+        if (Sunday[weekID] < 6) {
+          if (this.Month === 1) {
+            Month = 12
+          } else {
+            Month = Month * 1 - 1
+            this.Month = Month
+          }
+        }
+        this.$refs.mySwipe.prev()
+        console.log(weekID)
+      }
+
+      // native Javascript event
+      // console.log(evt)
+    },
+    prev () {
+      this.$refs.mySwipe.prev()
+    },
+    // next () {
+    //   weekID += 1
+    //   console.log(weekID)
+    //   this.$refs.mySwipe.next()
+    // },
+    nextWeek: function () {
+      weekID = weekID + 1
+    },
+    // addMessage: function () {
+    //   if (this.inputMessage === '') return
+
+    //   // Add message to firestore
+    //   db
+    //     .collection('Date')
+    //     .add({
+    //       // Auth: {
+    //       //   uid: this.user.uid,
+    //       //   name: this.user.displayName,
+    //       //   photoURL: this.user.photoURL,
+    //       //   email: this.user.email
+    //       // },
+    //       Time:{
+    //         Year: this.Year
+    //       },
+    //       content: this.inputMessage,
+    //       createTime: firebase.firestore.Timestamp.fromDate(new Date())
+    //     })
+    //     .then(() => {
+    //       this.inputMessage = ''
+    //     })
+    // },
+    retry: function () {
+      for (var i = 0; i < this.date.length; i++) {
+        // 循環所有checkbox,添加選中狀態
+        var checkedData = this.date[i]
+        checkedData.src = null
+        checkedData.show = false
+      }
+    },
     take: function (shape) {
       if (shape === 'heart') {
         if (flag !== 4) {
@@ -247,426 +5076,201 @@ export default {
         }
       }
     },
-    // stamp2: function (position) {
-    //   if (position === this.week.id) {
-    //     if (flag === 4) {
-    //       this.week.image = this.Heart
-    //       this.isShow = true
-    //     }
-    //   }
-    // },
-    stamp: function (position) {
-      if (position === 'c11') {
-        if (flag === 4) {
-          this.C11 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C11 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C11 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C11 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C11 = null
-        }
-      } else if (position === 'c12') {
-        if (flag === 4) {
-          this.C12 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C12 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C12 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C12 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C12 = null
-        }
-      } else if (position === 'c13') {
-        if (flag === 4) {
-          this.C13 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C13 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C13 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C13 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C13 = null
-        }
-      } else if (position === 'c21') {
-        if (flag === 4) {
-          this.C21 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C21 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C21 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C21 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C21 = null
-        }
-      } else if (position === 'c22') {
-        if (flag === 4) {
-          this.C22 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C22 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C22 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C22 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C22 = null
-        }
-      } else if (position === 'c23') {
-        if (flag === 4) {
-          this.C23 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C23 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C23 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C23 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C23 = null
-        }
-      } else if (position === 'c31') {
-        if (flag === 4) {
-          this.C31 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C31 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C31 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C31 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C31 = null
-        }
-      } else if (position === 'c32') {
-        if (flag === 4) {
-          this.C32 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C32 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C32 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C32 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C32 = null
-        }
-      } else if (position === 'c33') {
-        if (flag === 4) {
-          this.C33 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C33 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C33 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C33 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C33 = null
-        }
-      } else if (position === 'c41') {
-        if (flag === 4) {
-          this.C41 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C41 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C41 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C41 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C41 = null
-        }
-      } else if (position === 'c42') {
-        if (flag === 4) {
-          this.C42 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C42 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C42 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C42 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C42 = null
-        }
-      } else if (position === 'c43') {
-        if (flag === 4) {
-          this.C43 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C43 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C43 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C43 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C43 = null
-        }
-      } else if (position === 'c51') {
-        if (flag === 4) {
-          this.C51 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C51 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C51 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C51 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C51 = null
-        }
-      } else if (position === 'c52') {
-        if (flag === 4) {
-          this.C52 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C52 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C52 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C52 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C52 = null
-        }
-      } else if (position === 'c53') {
-        if (flag === 4) {
-          this.C53 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C53 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C53 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C53 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C53 = null
-        }
-      } else if (position === 'c61') {
-        if (flag === 4) {
-          this.C61 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C61 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C61 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C61 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C61 = null
-        }
-      } else if (position === 'c62') {
-        if (flag === 4) {
-          this.C62 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C62 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C62 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C62 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C62 = null
-        }
-      } else if (position === 'c63') {
-        if (flag === 4) {
-          this.C63 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C63 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C63 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C63 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C63 = null
-        }
-      } else if (position === 'c71') {
-        if (flag === 4) {
-          this.C71 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C71 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C71 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C71 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C71 = null
-        }
-      } else if (position === 'c72') {
-        if (flag === 4) {
-          this.C72 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C72 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C72 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C72 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C72 = null
-        }
-      } else if (position === 'c73') {
-        if (flag === 4) {
-          this.C73 = this.Heart
-          this.isShow = true
-        } else if (flag === 3) {
-          this.C73 = this.Circle
-          this.isShow = true
-        } else if (flag === 2) {
-          this.C73 = this.Triangle
-          this.isShow = true
-        } else if (flag === 1) {
-          this.C73 = this.Cross
-          this.isShow = true
-        } else if (flag === 5) {
-          this.C73 = null
-        }
+    stamp: function (item) {
+      if (flag === 4) {
+        item.src = Heart
+        item.status = 4
+        item.show = true
+      } else if (flag === 3) {
+        item.src = Circle
+        item.status = 3
+        item.show = true
+      } else if (flag === 2) {
+        item.src = Triangle
+        item.status = 2
+        item.show = true
+      } else if (flag === 1) {
+        item.src = Cross
+        item.status = 1
+        item.show = true
+      } else if (flag === 5) {
+        item.src = null
+        item.status = 5
+        item.show = false
       }
-    },
-    retry: function () {
-      this.HeartBtn = HeartBtn0
-      this.CircleBtn = CircleBtn0
-      this.TriangleBtn = TriangleBtn0
-      this.CrossBtn = CrossBtn0
-      this.EraserBtn = EraserBtn0
-
-      this.C11 = null
-      this.C12 = null
-      this.C13 = null
-
-      this.C21 = null
-      this.C22 = null
-      this.C23 = null
-
-      this.C31 = null
-      this.C32 = null
-      this.C33 = null
-
-      this.C41 = null
-      this.C42 = null
-      this.C43 = null
-
-      this.C51 = null
-      this.C52 = null
-      this.C53 = null
-
-      this.C61 = null
-      this.C62 = null
-      this.C63 = null
-
-      this.C71 = null
-      this.C72 = null
-      this.C73 = null
     }
   }
 }
-
 </script>
 
 <style lang="scss">
-.float-left{
+.float-left {
   margin-right: 18%;
 }
-.mb{
+.mb {
   margin-bottom: 4%;
 }
-.cell{
-  width: 100%;
-  height: auto;
-  padding: 25%;
-  margin: -3% 0%;
+.btnNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 3% 0;
+  padding: 0 3%;
 }
-.from{
+.retryBtn {
+  margin-right: 15%;
+  padding: 0;
+}
+.Btn {
+  align-items: center;
+}
+.btnText {
+  text-align: center;
+  margin: 5% 0 0 0;
+  font-size: 9pt;
+  font-weight: bold;
+}
+.calendar {
+  width: 24%;
+  padding: 2% 0;
+}
+.flex-timeline {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.month {
+  width: 80%;
+  border-radius: 5pt;
+  align-items: center;
+  margin-left: 10%;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+
+  height: 465px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  //   padding-right: 2%;
+}
+.flex-date {
+  display: flex;
+  flex-direction: row;
+  width: 285px;
+  height: 465px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.aa {
+  width: 23%;
+  height: 14.3%;
+}
+.date {
+  width: 100%;
+  height: 100%;
+  margin: 0 0 0 2%;
+  padding: 0 3%;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dateNo {
+  width: 100%;
+  color: #363636;
+  font-size: 20pt;
+  // font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+.dateNoRed {
+  width: 100%;
+  color: #db0d18;
+  font-size: 20pt;
+  // font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+.dateName {
+  width: 100%;
+  color: #707070;
+  font-size: 10pt;
+  // font-weight: bold;
+  text-align: center;
+}
+.dateNameRed {
+  width: 100%;
+  color: #db0d18;
+  font-size: 10pt;
+  // font-weight: bold;
+  text-align: center;
+}
+.cell {
+  width: 25%;
+  height: 14.3%;
+  padding: 7% 7.5%;
+  margin: 0% 0 0 0;
+  align-items: center;
+  border-bottom: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+}
+.shape {
+  width: 100%;
+  height: 100%;
+}
+// .cell {
+//   width: 100%;
+//   height: auto;
+//   padding: 25%;
+//   margin: -3% 0%;
+// }
+.from {
   height: 500px;
 }
-.day1{
+.day1 {
   border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day2{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day2 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day3{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day3 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day4{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day4 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day5{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day5 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-.day6{
-  border-bottom: 1px solid rgb(216, 216, 216)
+.day6 {
+  border-bottom: 1px solid rgb(216, 216, 216);
 }
-
+.padding0 {
+  padding: 0;
+}
+.margin0 {
+  margin: 0;
+}
+.NoBorderBottom {
+  border-bottom: 0px solid transparent;
+}
+.pink {
+  color: #d35584;
+}
+.blue {
+  color: #5979c6;
+}
+.yellow {
+  color: #eec22c;
+}
+.red {
+  color: #ce0014;
+}
 </style>
