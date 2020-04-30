@@ -84,7 +84,8 @@ module.exports = function (ctx) {
         'QPageScroller'
       ],
       directives: [
-        'ClosePopup'
+        'ClosePopup',
+        'TouchSwipe'
       ],
 
       // Quasar plugins

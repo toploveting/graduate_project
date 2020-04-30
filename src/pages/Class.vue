@@ -36,12 +36,19 @@
       <q-item v-for="item in week" :key="item" class="week" style>{{item.name}}</q-item>
     </div>
     <div class="flex-col">
-      <q-item v-for="item in classNo" :key="item" class="cellNo" style>{{item}}</q-item>
+      <q-item
+        v-for="item in classNo"
+        :key="item"
+        class="cellNo"
+        :class="{ NoBorderBottom: item.noBottom }"
+        style
+      >{{item.id}}</q-item>
       <q-item
         v-for="(item, id) in classTable"
         :key="id"
         v-on:click="stamp(item)"
         class="cell"
+        :class="{ NoBorderBottom: item.noBottom }"
         style
         clickable
         v-ripple
@@ -122,7 +129,36 @@ export default {
         { name: '週四' },
         { name: '週五' }
       ],
-      classNo: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      classNo: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        },
+        {
+          id: 3
+        },
+        {
+          id: 4
+        },
+        {
+          id: 5
+        },
+        {
+          id: 6
+        },
+        {
+          id: 7
+        },
+        {
+          id: 8
+        },
+        {
+          id: 9,
+          noBottom: true
+        }
+      ],
       classTable: [
         {
           id: 11,
@@ -178,7 +214,8 @@ export default {
           id: 19,
           src: null,
           status: null,
-          show: false
+          show: false,
+          noBottom: true
         },
         {
           id: 21,
@@ -232,7 +269,8 @@ export default {
           id: 29,
           src: null,
           status: null,
-          show: false
+          show: false,
+          noBottom: true
         },
         {
           id: 31,
@@ -286,7 +324,8 @@ export default {
           id: 39,
           src: null,
           status: null,
-          show: false
+          show: false,
+          noBottom: true
         },
         {
           id: 41,
@@ -340,7 +379,8 @@ export default {
           id: 49,
           src: null,
           status: null,
-          show: false
+          show: false,
+          noBottom: true
         },
         {
           id: 51,
@@ -394,7 +434,8 @@ export default {
           id: 59,
           src: null,
           status: null,
-          show: false
+          show: false,
+          noBottom: true
         }
       ]
     }
@@ -506,14 +547,14 @@ export default {
   justify-content: space-around;
   align-items: flex-start;
   margin: 3% 0;
-  padding:0 3%;
+  padding: 0 3%;
 }
 .flex-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-//   padding-right: 2%;
+  //   padding-right: 2%;
 }
 .flex-col {
   display: flex;
@@ -522,7 +563,7 @@ export default {
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-//   padding-right: 2%;
+  //   padding-right: 2%;
 }
 .retryBtn {
   margin-right: 15%;
@@ -571,6 +612,9 @@ export default {
 .shape {
   width: 100%;
   height: 100%;
+}
+.NoBorderBottom {
+  border-bottom: 0px solid transparent;
 }
 .padding0 {
   padding: 0;

@@ -88,6 +88,14 @@ export default {
           this.$router.replace('/home')
         })
         .catch(err => console.error(err))
+    },
+    logout () {
+      firebaseAuth.signOut()
+        .then(() => {
+          this.user = {}
+          this.isAuth = false
+        })
+        .catch(err => console.log(err))
     }
   }
 }

@@ -36,7 +36,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-      { path: 'test', component: () => import('pages/APItest.vue') }
+      { path: 'test', component: () => import('pages/FStest.vue') }
     ]
   },
   {
