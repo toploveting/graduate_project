@@ -547,6 +547,7 @@ import Cross from '../assets/cross.png'
 
 let flag = 0
 var weekID = 150
+var page = 0
 var Month = 1
 var Monday = new Array(300)
 var Tuesday = new Array(300)
@@ -560,7 +561,6 @@ let newDate = new Date()
 // const timeStamp = Date.now()
 // let formattedString = date.formatDate(timeStamp, 'YYYYMMDD')
 // const Year = date.formatDate(timeStamp, 'Y')
-Month = date.formatDate(newDate, 'M')
 // const Today = newDate
 const day = date.getDayOfWeek(newDate)
 
@@ -569,6 +569,7 @@ const day = date.getDayOfWeek(newDate)
 newDate = date.subtractFromDate(newDate, { days: day })
 
 newDate = date.addToDate(newDate, { days: 1 })
+Month = date.formatDate(newDate, 'M')
 newDate = date.subtractFromDate(newDate, { days: 1050 })
 let MondayF = newDate
 for (let i = 0; i < 300; i++) {
@@ -1825,6 +1826,7 @@ export default {
           noBottom: true
         }
       ],
+
       date2: [
         {
           id: 11,
@@ -2084,6 +2086,7 @@ export default {
           noBottom: true
         }
       ],
+
       date3: [
         {
           id: 11,
@@ -2343,6 +2346,7 @@ export default {
           noBottom: true
         }
       ],
+
       date4: [
         {
           id: 11,
@@ -2602,6 +2606,7 @@ export default {
           noBottom: true
         }
       ],
+
       date5: [
         {
           id: 11,
@@ -2861,6 +2866,7 @@ export default {
           noBottom: true
         }
       ],
+
       date6: [
         {
           id: 11,
@@ -4939,6 +4945,7 @@ export default {
     handleSwipe ({ direction }) {
       this.info = direction
       if (direction === 'left') {
+        page += 1
         weekID += 1
         this.Mon = Monday[weekID]
         if (Monday[weekID] < 8) {
@@ -4951,8 +4958,9 @@ export default {
         }
         this.Sun = Sunday[weekID]
         this.$refs.mySwipe.next()
-        console.log(weekID)
+        console.log(page)
       } else if (direction === 'right') {
+        page -= 1
         weekID -= 1
         this.Mon = Monday[weekID]
         this.Sun = Sunday[weekID]
@@ -4965,7 +4973,7 @@ export default {
           }
         }
         this.$refs.mySwipe.prev()
-        console.log(weekID)
+        console.log(page)
       }
 
       // native Javascript event
@@ -5006,11 +5014,104 @@ export default {
     //     })
     // },
     retry: function () {
-      for (var i = 0; i < this.date.length; i++) {
-        // 循環所有checkbox,添加選中狀態
-        var checkedData = this.date[i]
-        checkedData.src = null
-        checkedData.show = false
+      if (page === 0) {
+        for (let i = 0; i < this.date0.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date0[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 1) {
+        for (let i = 0; i < this.date1.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date1[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 2) {
+        for (let i = 0; i < this.date2.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date2[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 3) {
+        for (let i = 0; i < this.date3.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date3[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 4) {
+        for (let i = 0; i < this.date4.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date4[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 5) {
+        for (let i = 0; i < this.date5.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date5[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 6) {
+        for (let i = 0; i < this.date6.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date6[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 7) {
+        for (let i = 0; i < this.date7.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date7[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 8) {
+        for (let i = 0; i < this.date8.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date8[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 9) {
+        for (let i = 0; i < this.date9.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date9[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 10) {
+        for (let i = 0; i < this.date10.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date10[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -3) {
+        for (let i = 0; i < this.date11.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date11[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -2) {
+        for (let i = 0; i < this.date12.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date12[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -1) {
+        for (let i = 0; i < this.date13.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date13[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
       }
     },
     take: function (shape) {
@@ -5163,13 +5264,17 @@ export default {
   flex-direction: row;
   width: 285px;
   height: 465px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 .aa {
   width: 23%;
   height: 14.3%;
+}
+.bb {
+  width: 100%;
+  height: 100%;
 }
 .date {
   width: 100%;
