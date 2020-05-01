@@ -43,7 +43,7 @@
     </div>
     <div class="row q-pt-md">
         <div class="col-3">
-            <q-btn no-caps push @click="show()" ><img src="~assets/detail.png" class="detail"/></q-btn>
+            <q-btn unelevated @click="show()" ><img src="~assets/detail.png" class="detail"/></q-btn>
         </div>
         <div class="col-9">
           <q-linear-progress rounded size="25px" :value="progress1" track-color="white" class="shadow-2 q-mt-xs progress">
@@ -115,6 +115,12 @@
   border-radius: 20pt;
   color: rgb(0, 124, 227);
 }
+.bottomSheet{
+  background-color: rgb(239, 242, 246);
+}
+.msg{
+  background-color: white;
+}
 </style>
 
 <script>
@@ -129,12 +135,22 @@ export default {
     show () {
       this.$q.bottomSheet({
         title: '活動名稱',
+        class: 'bottomSheet',
+        message: '10月',
         actions: [
           {
-            label: '10月',
-            img: 'https://cdn.quasar.dev/img/logo_drive_128px.png',
-            id: 'drive'
-          }]
+            label: '29早上',
+            img: 'src/assets/circle.png'
+          },
+          {
+            label: '29中午',
+            img: 'src/assets/circle.png'
+          },
+          {
+            label: '30中午',
+            img: 'src/assets/circle.png'
+          }
+        ]
       }).onOk(action => {
         // console.log('Action chosen:', action.id)
       }).onCancel(() => {

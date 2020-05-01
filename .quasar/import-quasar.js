@@ -17,14 +17,7 @@ import iconSet from 'quasar/icon-set/material-icons'
 
 import Vue from 'vue'
 
-<<<<<<< HEAD
-import {Quasar,QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,QSeparator,QLinearProgress,ClosePopup,BottomSheet} from 'quasar'
+import {Quasar,QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,QSeparator,QLinearProgress,ClosePopup,TouchSwipe,BottomSheet} from 'quasar'
 
 
-Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,components: {QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,QSeparator,QLinearProgress},directives: {ClosePopup},plugins: {BottomSheet} })
-=======
-import {Quasar,QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,ClosePopup,TouchSwipe} from 'quasar'
-
-
-Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,components: {QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller},directives: {ClosePopup,TouchSwipe} })
->>>>>>> classShare2
+Vue.use(Quasar, { config: {},lang: lang,iconSet: iconSet,components: {QBtn,QIcon,QForm,QInput,QRadio,QOptionGroup,QField,QDate,QCheckbox,QTime,QCard,QCardSection,QCardActions,QSlideItem,QDialog,QStepper,QStep,QStepperNavigation,QToggle,QExpansionItem,QLayout,QPageContainer,QPage,QHeader,QFooter,QDrawer,QPageSticky,QPageScroller,QSeparator,QLinearProgress},directives: {ClosePopup,TouchSwipe},plugins: {BottomSheet} })
