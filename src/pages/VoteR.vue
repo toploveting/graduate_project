@@ -43,7 +43,77 @@
     </div>
     <div class="row q-pt-md">
         <div class="col-3">
-            <q-btn unelevated @click="show()" ><img src="~assets/detail.png" class="detail"/></q-btn>
+          <q-btn unelevated @click="open('bottom')"><img src="~assets/detail.png" class="detail"/></q-btn>
+          <q-dialog v-model="dialog" :position="position">
+            <q-card class="dialog" style="width: 350px">
+              <q-toolbar class="q-pt-sm">
+                <q-toolbar-title class="title text-center">活動名稱</q-toolbar-title>
+                <q-btn flat round dense icon="close" v-close-popup class="q-mr-xs"/>
+              </q-toolbar>
+              <q-card-section class="row items-center no-wrap">
+                <div>
+                  <div class="card_month text-center shadow-5">10月</div>
+                  <div class="result1 row q-mt-md shadow-5">
+                    <div class="col-5 q-pt-md q-pl-md ">
+                      <span class="text-bold re_week">星期二</span>
+                      <br>
+                      <span class="re_month">29</span>
+                      <span class="re_time q-pl-md q-mb-sm">早上</span>
+                    </div>
+                    <div class="row q-pt-md q-pl-md">
+                      <div class="col text-center">4<br/>
+                        <img class="q-mx-md q-mt-lg q-pb-xs" src="~assets/votecircle.png"/>
+                      </div>
+                      <div class="col text-center">1<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votetriangle.png"/>
+                      </div>
+                      <div class="col text-center">2<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votecross.png"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="result2 row q-mt-md shadow-5">
+                    <div class="col-5 q-pt-md q-pl-md">
+                      <span class="text-bold re_week">星期二</span>
+                      <br>
+                      <span class="re_month">29</span>
+                      <span class="re_time q-pl-md q-mb-sm">中午</span>
+                    </div>
+                    <div class="row q-pt-md q-pl-md">
+                      <div class="col text-center">4<br/>
+                        <img class="q-mx-md q-mt-lg q-pb-xs" src="~assets/votecircle.png"/>
+                      </div>
+                      <div class="col text-center">1<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votetriangle.png"/>
+                      </div>
+                      <div class="col text-center">2<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votecross.png"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="result3 row q-mt-md shadow-5">
+                    <div class="col-5 q-pt-md q-pl-md">
+                      <span class="text-bold re_week">星期三</span>
+                      <br>
+                      <span class="re_month">30</span>
+                      <span class="re_time q-pl-md q-mb-sm">中午</span>
+                    </div>
+                    <div class="row q-pt-md q-pl-md">
+                      <div class="col text-center">4<br/>
+                        <img class="q-mx-md q-mt-lg q-pb-xs" src="~assets/votecircle.png"/>
+                      </div>
+                      <div class="col text-center">1<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votetriangle.png"/>
+                      </div>
+                      <div class="col text-center">2<br/>
+                        <img class="q-mx-lg q-mt-lg q-pb-xs" src="~assets/votecross.png"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
         </div>
         <div class="col-9">
           <q-linear-progress rounded size="25px" :value="progress1" track-color="white" class="shadow-2 q-mt-xs progress">
@@ -109,7 +179,8 @@
   height: 75pt;
 }
 .detail{
-  margin-left: -15%;
+  margin-left: -30%;
+  margin-top: -10%;
 }
 .progress{
   border-radius: 20pt;
@@ -121,6 +192,51 @@
 .msg{
   background-color: white;
 }
+.dialog{
+  background-color: rgb(238, 241, 246);
+}
+.card_month{
+  width: 72pt;
+  height: 42pt;
+  font-size: 18pt;
+  color: rgb(63, 121, 204);
+  background-color: white;
+  border-radius: 10pt;
+  padding-top: 8pt;
+}
+.result1{
+  width: 260pt;
+  height: 80pt;
+  background-color: white;
+  border-radius: 10pt;
+  border-left: 8pt solid rgba(238, 194, 44, 0.5);
+}
+.result2{
+  width: 260pt;
+  height: 80pt;
+  background-color: white;
+  border-radius: 10pt;
+  border-left: 8pt solid rgba(0, 70, 195, 0.5);
+}
+.result3{
+  width: 260pt;
+  height: 80pt;
+  background-color: white;
+  border-radius: 10pt;
+  border-left: 8pt solid rgba(208, 14, 32, 0.5);
+}
+.re_week{
+  font-size: 12pt;
+}
+.re_month{
+  font-size: 30pt;
+  color: rgb(44, 75, 120);
+}
+.re_time{
+  font-size: 14pt;
+  color: rgb(153, 153, 153);
+  margin-top: -10pt;
+}
 </style>
 
 <script>
@@ -128,36 +244,15 @@ export default {
   name: 'voteR',
   data () {
     return {
-      progress1: 0.6
+      progress1: 0.6,
+      dialog: false,
+      position: 'top'
     }
   },
   methods: {
-    show () {
-      this.$q.bottomSheet({
-        title: '活動名稱',
-        class: 'bottomSheet',
-        message: '10月',
-        actions: [
-          {
-            label: '29早上',
-            img: 'src/assets/circle.png'
-          },
-          {
-            label: '29中午',
-            img: 'src/assets/circle.png'
-          },
-          {
-            label: '30中午',
-            img: 'src/assets/circle.png'
-          }
-        ]
-      }).onOk(action => {
-        // console.log('Action chosen:', action.id)
-      }).onCancel(() => {
-        // console.log('Dismissed')
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
+    open (position) {
+      this.position = position
+      this.dialog = true
     }
   },
   computed: {
