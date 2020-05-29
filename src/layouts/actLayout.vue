@@ -69,9 +69,9 @@
             </q-expansion-item>
             <q-expansion-item
               label="建立活動" expand-icon-class="text-white">
-              <q-item clickable v-ripple>
+              <q-item clickable v-ripple to="activity">
                 <q-item-section avatar>
-                  <q-icon name="star"></q-icon>
+                  <q-img src="~assets/star.png" style="width:20px" class="q-ml-xs"/>
                 </q-item-section>
                 <q-item-section>
                   活動
@@ -79,9 +79,18 @@
               </q-item>
             </q-expansion-item>
             <q-separator color="white"/>
-            <q-item clickable v-ripple>
+            <q-item clickable v-ripple to="setting">
               <q-item-section avatar>
-                <q-icon name="send"></q-icon>
+                <q-img src="~assets/set.png" style="width:20px" class="q-ml-xs"/>
+              </q-item-section>
+              <q-item-section>
+                設定
+              </q-item-section>
+            </q-item>
+            <q-separator color="white"/>
+            <q-item clickable v-ripple to="/">
+              <q-item-section avatar>
+                <q-img src="~assets/logout.png" style="width:20px" class="q-ml-xs"/>
               </q-item-section>
               <q-item-section>
                 登出

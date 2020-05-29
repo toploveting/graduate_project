@@ -11,10 +11,10 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: 'home', component: () => import('pages/Index.vue') },
       { path: 'signin', component: () => import('pages/Signin.vue') },
       { path: 'email', component: () => import('pages/Email.vue') },
-      { path: 'success', component: () => import('pages/Success.vue') }
+      { path: 'success', component: () => import('pages/Success.vue') },
+      { path: 'setting', component: () => import('pages/Setting.vue') }
     ]
   },
   {
@@ -73,6 +73,16 @@ const routes = [
     children: [
       { path: 'vote', component: () => import('pages/Vote.vue') },
       { path: 'vote_r', component: () => import('pages/VoteR.vue') }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/settingLayout.vue'),
+    children: [
+      { path: 'setclass', component: () => import('pages/Setclass.vue') },
+      { path: 'setmonth', component: () => import('pages/Setmonth.vue') },
+      { path: 'setid', component: () => import('pages/Setid.vue') },
+      { path: 'setaccount', component: () => import('pages/Setaccount.vue') }
     ]
   }
 ]

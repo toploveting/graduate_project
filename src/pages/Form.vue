@@ -17,7 +17,7 @@
           :done="step > 1"
           :bordered="step > 1"
         >
-          <p class="text-h6 text-blue-8 q-pt-md q-pl-lg">主題名稱</p>
+          <p class="text text-bold q-pt-md q-pl-lg">主題名稱</p>
           <q-input
             class="q-mx-lg"
             filled
@@ -25,7 +25,7 @@
             label="title"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"/>
-          <p class="text-h6 text-blue-8 q-pl-lg">說明</p>
+          <p class="text text-bold q-pl-lg">說明</p>
           <q-input
             class="q-mx-lg"
             filled
@@ -34,8 +34,8 @@
             type="textarea"
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something']"/>
-          <q-stepper-navigation class="q-ml-xl">
-            <q-btn @click="() => { done1 = true; step = 2 }" color="secondary" label="下一步" class="q-ml-xl"/>
+          <q-stepper-navigation class="text-center">
+            <q-btn @click="() => { done1 = true; step = 2 }" color="secondary" label="下一步"/>
           </q-stepper-navigation>
         </q-step>
         <q-step
@@ -44,22 +44,21 @@
           color="secondary"
           icon="create_new_folder"
           :done="step > 2"
-          :bordered="step > 2">
-          <p class="text-h6 text-blue-8 q-pl-lg">日期區間</p>
+          :bordered="step > 2"
+          class="q-px-md">
+          <p class="text text-bold daterange">日期區間</p>
           <v-date-picker
-            class="q-px-lg"
             first-day-of-week="2"
             :masks="{ title: 'MMM YYYY' }"
             mode="multiple"
             :value="null"
             v-model='dates'
             color="blue"/>
-          <p class="text-h6 text-blue-8 q-pl-lg">時段</p>
-          <q-checkbox class="q-px-lg" color="secondary" v-model="selectall" val="all" label="全選" />
-          <q-separator inset />
+          <p class="text text-bold timing">時段</p>
+          <q-checkbox color="secondary" v-model="selectall" val="all" label="全選" />
+          <q-separator />
           <br>
           <q-toggle
-            class="q-px-lg"
             v-model="third"
             checked-icon="check"
             color="green"
@@ -67,7 +66,6 @@
             label="早上"/>
           <br><br>
           <q-toggle
-            class="q-px-lg"
             v-model="third2"
             checked-icon="check"
             color="green"
@@ -75,7 +73,6 @@
             label="中午"/>
           <br><br>
           <q-toggle
-            class="q-px-lg"
             v-model="third3"
             checked-icon="check"
             color="green"
@@ -83,20 +80,19 @@
             label="下午"/>
           <br><br>
           <q-toggle
-            class="q-px-lg"
             v-model="third4"
             checked-icon="check"
             color="green"
             unchecked-icon="clear"
             label="晚上"/>
           <br><br>
-          <q-input class="q-pl-sm q-pr-md" color="secondary"  v-model="text2" label="其他" :dense="dense" >
+          <q-input class="q-pr-md" color="secondary"  v-model="text2" label="其他" :dense="dense" >
             <template v-slot:before>
-              <q-checkbox class="q-pl-md" color="secondary"  v-model="selection" val="other" />
+              <q-checkbox class="" color="secondary"  v-model="selection" val="other" />
             </template>
           </q-input>
-          <q-stepper-navigation class="q-ml-xl">
-            <q-btn @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步" class="q-ml-xl"/>
+          <q-stepper-navigation class="text-center">
+            <q-btn @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步"/>
           </q-stepper-navigation>
         </q-step>
         <q-step
@@ -122,8 +118,8 @@
               @openChange="handleOpenChange1"
               @panelChange="handlePanelChange1"/>
           </div>
-          <q-stepper-navigation class="q-ml-xl">
-            <q-btn color="secondary" @click="done3 = true" label="建立" to="build" class="q-ml-xl"/>
+          <q-stepper-navigation class="text-center">
+            <q-btn color="secondary" @click="done3 = true" label="建立" to="build"/>
           </q-stepper-navigation>
         </q-step>
       </q-stepper>
@@ -133,11 +129,19 @@
 </template>
 
 <style lang="scss">
-.title{
-  padding-left: 30%
-}
 .drawer{
   color:white
+}
+.text{
+  font-size: 20px;
+  color: rgb(63, 121, 204);
+}
+.daterange{
+  margin-bottom: 10px;
+}
+.timing{
+  margin-top: 35px;
+  margin-bottom: 5px;
 }
 </style>
 
