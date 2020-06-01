@@ -58,6 +58,8 @@ import qboot_Bootfirebase from 'boot/firebase'
 
 import qboot_Bootcapacitor from 'boot/capacitor'
 
+import qboot_Bootbus from 'boot/bus'
+
 
 
 
@@ -88,7 +90,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootfirebase,qboot_Bootcapacitor]
+  const bootFiles = [qboot_Bootfirebase,qboot_Bootcapacitor,qboot_Bootbus]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

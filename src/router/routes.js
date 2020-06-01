@@ -28,19 +28,20 @@ const routes = [
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-      { path: 'class', component: () => import('pages/Class.vue') },
       { path: 'month', component: () => import('pages/Month.vue') },
-      { path: 'week', component: () => import('pages/Week.vue') }
-
     ]
   },
   {
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-      { path: 'test', component: () => import('pages/FStest.vue') }
+     { path: 'test', component: () => import('pages/FStest.vue') }
     ]
   },
+  { path: '/week', component: () => import('pages/Week.vue') },
+  { path: '/chooseWeek', component: () => import('pages/ChooseWeek.vue') },
+  { path: '/class', component: () => import('pages/Class.vue') },
+  { path: '/chooseClass', component: () => import('pages/ChooseClass.vue') },
   {
     path: '/',
     component: () => import('pages/Form.vue'),

@@ -1,79 +1,86 @@
 <template>
-  <div id="app">
-    <q-layout view="hHh lpr fFf">
+  <q-layout view="hHh lpr fFf">
     <q-header>
       <q-toolbar class="toolbar bg-secondary">
-        <q-btn
-          flat
-          dense
-          round
-          icon="navigate_beforet"
-          to="list"/>
+        <q-btn flat dense round icon="menu" to="list"/>
+        <q-space/>
         <q-toolbar-title class="title">課表</q-toolbar-title>
-        <q-btn flat round dense label="完成" to="home"/>
+        <q-space/>
+        <q-btn @click="print('hello')" flat round dense label="下一步" class="q-mr-xs"/>
       </q-toolbar>
     </q-header>
-    <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
-        <img class="q-pb-xs padding0" :src="RetryBtn">
-      </q-btn>
-      <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
-        <img class="q-pb-xs padding0" :src="EraserBtn">
-      </q-btn>
-      <div class="Btn">
-        <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="HeartBtn">
-        </q-btn>
-        <p class="btnText pink">偏好</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="CircleBtn">
-        </q-btn>
-        <p class="btnText blue">可以</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="TriangleBtn">
-        </q-btn>
-        <p class="btnText yellow">不確定</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="CrossBtn">
-        </q-btn>
-        <p class="btnText red">不可以</p>
-      </div>
-    </div>
-    <div class="flex-row">
-      <q-item v-for="item in week" :key="item" class="week" style>{{item.name}}</q-item>
-    </div>
-    <div class="flex-col">
-      <q-item
-        v-for="item in classNo"
-        :key="item"
-        class="cellNo"
-        :class="{ NoBorderBottom: item.noBottom }"
-        style
-      >{{item.id}}</q-item>
-      <q-item
-        v-for="(item, id) in classTable"
-        :key="id"
-        v-on:click="stamp(item)"
-        class="cell"
-        :class="{ NoBorderBottom: item.noBottom }"
-        style
-        clickable
-        v-ripple
-      >
-        <img v-if="item.show" class="shape" :src="item.src">
-      </q-item>
-    </div>
-        </q-layout>
-  </div>
+    <q-page-container>
+      <template>
+        <div id="app">
+          <div style="height : 50px" class="btnNav">
+            <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
+              <img class="q-pb-xs padding0" :src="RetryBtn">
+            </q-btn>
+            <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
+              <img class="q-pb-xs padding0" :src="EraserBtn">
+            </q-btn>
+            <div class="Btn">
+              <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
+                <img class="q-pb-xs padding0" :src="HeartBtn">
+              </q-btn>
+              <p class="btnText pink">偏好</p>
+            </div>
+            <div class="Btn">
+              <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
+                <img class="q-pb-xs padding0" :src="CircleBtn">
+              </q-btn>
+              <p class="btnText blue">可以</p>
+            </div>
+            <div class="Btn">
+              <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
+                <img class="q-pb-xs padding0" :src="TriangleBtn">
+              </q-btn>
+              <p class="btnText yellow">不確定</p>
+            </div>
+            <div class="Btn">
+              <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
+                <img class="q-pb-xs padding0" :src="CrossBtn">
+              </q-btn>
+              <p class="btnText red">不可以</p>
+            </div>
+          </div>
+
+          <q-card ref="hello" class="no-shadow relative-position flex-center">
+            <div class="flex-row">
+              <q-item v-for="item in week" :key="item" class="week" style>{{item.name}}</q-item>
+            </div>
+            <div class="flex-col">
+              <q-item
+                v-for="item in classNo"
+                :key="item"
+                class="cellNo"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+              >{{item.id}}</q-item>
+              <q-item
+                v-for="(item, id) in classTable"
+                :key="id"
+                v-on:click="stamp(item)"
+                class="cell"
+                :class="{ NoBorderBottom: item.noBottom }"
+                style
+                clickable
+                v-ripple
+              >
+                <img v-if="item.show" class="shape" :src="item.src">
+              </q-item>
+            </div>
+          </q-card>
+        </div>
+      </template>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
+import { db } from '../boot/firebase.js'
+import html2canvas from 'html2canvas'
+
 import Heart from '../assets/heart.png'
 import Circle from '../assets/circle.png'
 import Triangle from '../assets/triangle.png'
@@ -455,6 +462,24 @@ export default {
     }
   },
   methods: {
+    async print (name) {
+      const el = this.$refs[name].$el
+      const screenshot = (await html2canvas(el)).toDataURL()
+      this.output = (await html2canvas(el)).toDataURL()
+      db.collection('screenshot')
+        .doc('class')
+        .set({
+          url: screenshot
+        })
+        .then(function () {
+          console.log('Document successfully written!')
+        })
+        .catch(function (error) {
+          console.error('Error writing document: ', error)
+        })
+      this.$router.push({ path: '/chooseClass' })
+    },
+
     retry: function () {
       for (var i = 0; i < this.classTable.length; i++) {
         // 循環所有checkbox,添加選中狀態

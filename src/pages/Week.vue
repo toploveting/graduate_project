@@ -1,18 +1,22 @@
 <template>
-  <div class="q-pa-md padding0" style="height:100%">
-    <q-layout view="hHh lpr fFf">
+  <q-layout view="hHh lpr fFf">
     <q-header>
       <q-toolbar class="toolbar bg-secondary">
         <q-btn
           flat
           dense
           round
-          icon="navigate_beforet"
+          icon="menu"
           to="list"/>
+          <q-space />
         <q-toolbar-title class="title">週曆</q-toolbar-title>
-        <q-btn flat round dense label="完成" to="home"/>
+        <q-space />
+        <q-btn @click="print('hello')" flat round dense label="下一步" class="q-mr-xs" />
       </q-toolbar>
     </q-header>
+    <q-page-container>
+
+<template>
     <div style="height : 50px" class="btnNav">
       <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
         <img class="q-pb-xs padding0" :src="RetryBtn">
@@ -48,7 +52,8 @@
     </div>
 
     <q-card
-      v-touch-swipe.mouse.horizontal="handleSwipe"
+      ref="hello"
+      v-touch-swipe.horizontal="handleSwipe"
       class="no-shadow relative-position flex-center"
     >
       <div class="row day0">
@@ -76,10 +81,10 @@
         </div>
       </div>
 
-      <!-- <q-btn @click="next" label="Next" class="btn btn-default"></q-btn> -->
+      <!-- <q-btn @click.native="print('hello')" label="Capture" class="btn btn-default"></q-btn> -->
       <!-- <p>{{info}}</p> -->
 
-      <swipe ref="mySwipe" style="max-width:500px;margin:0 auto">
+      <swipe ref="mySwipe" :options="swipeOptions" style="max-width:500px;margin:0 auto">
         <swipe-item>
           <div class="flex-col">
             <div class="aa">
@@ -529,16 +534,24 @@
         </swipe-item>
       </swipe>
     </q-card>
-    </q-layout>
-  </div>
+</template>
+
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
 // import firebase from 'firebase'
-// import { db } from '../boot/firebase.js'
+import { db } from '../boot/firebase.js'
 import Vue from 'vue'
 import VSwipe from 'vswipe'
 Vue.use(VSwipe)
+import html2canvas from 'html2canvas'
+import Bus from '../boot/bus.js'
+
+// import { Swipe, SwipeItem } from 'vue-swipe'
+// Vue.component('swipe', Swipe)
+// Vue.component('swipe-item', SwipeItem)
 
 import { date } from 'quasar'
 
@@ -561,6 +574,7 @@ import Cross from '../assets/cross.png'
 
 let flag = 0
 var weekID = 150
+var page = 0
 var Month = 1
 var Monday = new Array(300)
 var Tuesday = new Array(300)
@@ -574,7 +588,6 @@ let newDate = new Date()
 // const timeStamp = Date.now()
 // let formattedString = date.formatDate(timeStamp, 'YYYYMMDD')
 // const Year = date.formatDate(timeStamp, 'Y')
-Month = date.formatDate(newDate, 'M')
 // const Today = newDate
 const day = date.getDayOfWeek(newDate)
 
@@ -583,6 +596,7 @@ const day = date.getDayOfWeek(newDate)
 newDate = date.subtractFromDate(newDate, { days: day })
 
 newDate = date.addToDate(newDate, { days: 1 })
+Month = date.formatDate(newDate, 'M')
 newDate = date.subtractFromDate(newDate, { days: 1050 })
 let MondayF = newDate
 for (let i = 0; i < 300; i++) {
@@ -642,6 +656,15 @@ for (let i = 0; i < 300; i++) {
 export default {
   data: function () {
     return {
+      output: null,
+      swipeOptions: {
+        startSlide: 0,
+        // continuous: false,
+        disableScroll: false,
+        callback: function (index, slide) {
+          console.log(index)
+        }
+      },
       info: null,
       weekID: weekID,
       Month: Month,
@@ -1839,6 +1862,7 @@ export default {
           noBottom: true
         }
       ],
+
       date2: [
         {
           id: 11,
@@ -2098,6 +2122,7 @@ export default {
           noBottom: true
         }
       ],
+
       date3: [
         {
           id: 11,
@@ -2357,6 +2382,7 @@ export default {
           noBottom: true
         }
       ],
+
       date4: [
         {
           id: 11,
@@ -2616,6 +2642,7 @@ export default {
           noBottom: true
         }
       ],
+
       date5: [
         {
           id: 11,
@@ -2875,6 +2902,7 @@ export default {
           noBottom: true
         }
       ],
+
       date6: [
         {
           id: 11,
@@ -4950,11 +4978,32 @@ export default {
     }
   },
   methods: {
+    async print (name) {
+      const el = this.$refs[name].$el
+      const screenshot = (await html2canvas(el)).toDataURL()
+      this.output = (await html2canvas(el)).toDataURL()
+      db.collection('screenshot')
+        .doc('week')
+        .set({
+          url: screenshot
+        })
+        .then(function () {
+          console.log('Document successfully written!')
+        })
+        .catch(function (error) {
+          console.error('Error writing document: ', error)
+        })
+      Bus.$emit('url', (await html2canvas(el)).toDataURL())
+      this.$router.push({ path: '/chooseWeek' })
+    },
     handleSwipe ({ direction }) {
       this.info = direction
       if (direction === 'left') {
+        page += 1
         weekID += 1
+        this.$refs.mySwipe.next()
         this.Mon = Monday[weekID]
+        this.Sun = Sunday[weekID]
         if (Monday[weekID] < 8) {
           if (this.Month === 12) {
             Month = 1
@@ -4963,10 +5012,9 @@ export default {
             this.Month = Month
           }
         }
-        this.Sun = Sunday[weekID]
-        this.$refs.mySwipe.next()
         console.log(weekID)
       } else if (direction === 'right') {
+        page -= 1
         weekID -= 1
         this.Mon = Monday[weekID]
         this.Sun = Sunday[weekID]
@@ -4979,52 +5027,111 @@ export default {
           }
         }
         this.$refs.mySwipe.prev()
-        console.log(weekID)
+        console.log(page)
       }
 
       // native Javascript event
       // console.log(evt)
     },
-    prev () {
-      this.$refs.mySwipe.prev()
-    },
-    // next () {
-    //   weekID += 1
-    //   console.log(weekID)
-    //   this.$refs.mySwipe.next()
-    // },
-    nextWeek: function () {
-      weekID = weekID + 1
-    },
-    // addMessage: function () {
-    //   if (this.inputMessage === '') return
-
-    //   // Add message to firestore
-    //   db
-    //     .collection('Date')
-    //     .add({
-    //       // Auth: {
-    //       //   uid: this.user.uid,
-    //       //   name: this.user.displayName,
-    //       //   photoURL: this.user.photoURL,
-    //       //   email: this.user.email
-    //       // },
-    //       Time:{
-    //         Year: this.Year
-    //       },
-    //       content: this.inputMessage,
-    //       createTime: firebase.firestore.Timestamp.fromDate(new Date())
-    //     })
-    //     .then(() => {
-    //       this.inputMessage = ''
-    //     })
-    // },
     retry: function () {
-      for (var i = 0; i < this.date.length; i++) {
-        // 循環所有checkbox,添加選中狀態
-        var checkedData = this.date[i]
-        checkedData.src = null
-        checkedData.show = false
+      if (page === 0) {
+        for (let i = 0; i < this.date0.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date0[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 1) {
+        for (let i = 0; i < this.date1.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date1[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 2) {
+        for (let i = 0; i < this.date2.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date2[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 3) {
+        for (let i = 0; i < this.date3.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date3[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 4) {
+        for (let i = 0; i < this.date4.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date4[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 5) {
+        for (let i = 0; i < this.date5.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date5[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 6) {
+        for (let i = 0; i < this.date6.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date6[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 7) {
+        for (let i = 0; i < this.date7.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date7[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 8) {
+        for (let i = 0; i < this.date8.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date8[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 9) {
+        for (let i = 0; i < this.date9.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date9[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === 10) {
+        for (let i = 0; i < this.date10.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date10[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -3) {
+        for (let i = 0; i < this.date11.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date11[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -2) {
+        for (let i = 0; i < this.date12.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date12[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
+      } else if (page === -1) {
+        for (let i = 0; i < this.date13.length; i++) {
+          // 循環所有checkbox,添加選中狀態
+          const checkedData = this.date13[i]
+          checkedData.src = null
+          checkedData.show = false
+        }
       }
     },
     take: function (shape) {
@@ -5114,6 +5221,17 @@ export default {
       }
     }
   }
+  // updated: function () {
+  //   console.log('1==我会先执行')
+
+  //   this.$nextTick(function () {
+  //     // 在下次 DOM 更新循环结束之后执行这个回调。在修改数据之后立即使用这个方法，获取更新后的DOM.
+  //     this.print('hello')
+  //     console.log('3==我只能等页面渲染完了才会立即执行')
+  //   })
+
+  //   console.log('2==我虽然在最后但会比$nextTick先执行')
+  // }
 }
 </script>
 
@@ -5177,13 +5295,17 @@ export default {
   flex-direction: row;
   width: 285px;
   height: 465px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 .aa {
   width: 23%;
   height: 14.3%;
+}
+.bb {
+  width: 100%;
+  height: 100%;
 }
 .date {
   width: 100%;
@@ -5286,5 +5408,12 @@ export default {
 }
 .red {
   color: #ce0014;
+}
+.output {
+  width: 375px;
+  height: auto;
+}
+.title{
+  text-align: center
 }
 </style>
