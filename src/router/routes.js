@@ -28,14 +28,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-      { path: 'month', component: () => import('pages/Month.vue') },
+      { path: 'month', component: () => import('pages/Month.vue') }
     ]
   },
   {
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-     { path: 'test', component: () => import('pages/FStest.vue') }
+      { path: 'test', component: () => import('pages/FStest.vue') }
     ]
   },
   { path: '/week', component: () => import('pages/Week.vue') },

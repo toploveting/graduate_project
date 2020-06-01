@@ -1,13 +1,9 @@
-<<<<<<< HEAD
+
 .quasar
 .DS_Store
 .thumbs.db
 node_modules
-=======
->>>>>>> origin/ting
-.DS_Store
-.thumbs.db
-node_modules
+
 
 # Quasar core related directories
 .quasar
@@ -38,4 +34,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+node_modules
 node_modules
