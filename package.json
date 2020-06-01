@@ -18,6 +18,7 @@
     "@capacitor/ios": "^2.0.1",
     "@codetrix-studio/capacitor-google-auth": "^2.0.1",
     "@hapi/cryptiles": "^5.0.0",
+    "@icon/ionicons": "^5.0.1-alpha.0",
     "@ionic/pwa-elements": "^1.5.2",
     "@quasar/extras": "^1.6.2",
     "ant-design-vue": "^1.5.1",
@@ -40,11 +41,18 @@
     "vswipe": "^1.0.1",
     "vue-axios": "^2.1.5",
     "vue-clipboard2": "^0.3.1",
+    "vue-delay": "^0.1.0",
     "vue-google-signin-button": "^1.0.4",
     "vue-google-signin-button-directive": "^1.0.3",
+    "vue-html2canvas": "0.0.4",
     "vue-i18n": "^8.0.0",
+<<<<<<< HEAD
     "vue-pickers": "^2.5.1",
+=======
+    "vue-navigator-share": "^1.0.3",
+>>>>>>> groupFrist
     "vue-social-auth": "^1.4.3",
+    "vue-swipe": "^2.4.0",
     "vuefire": "^2.2.2"
   },
   "devDependencies": {
