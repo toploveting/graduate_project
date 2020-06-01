@@ -15,21 +15,8 @@
       </q-toolbar>
     </q-header>
     <q-page-container>
+
 <template>
-  <div class="q-pa-md padding0" style="height:100%">
-    <q-layout view="hHh lpr fFf">
-    <q-header>
-      <q-toolbar class="toolbar bg-secondary">
-        <q-btn
-          flat
-          dense
-          round
-          icon="navigate_beforet"
-          to="list"/>
-        <q-toolbar-title class="title">週曆</q-toolbar-title>
-        <q-btn flat round dense label="完成" to="home"/>
-      </q-toolbar>
-    </q-header>
     <div style="height : 50px" class="btnNav">
       <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
         <img class="q-pb-xs padding0" :src="RetryBtn">
@@ -547,12 +534,6 @@
         </swipe-item>
       </swipe>
     </q-card>
-<<<<<<< HEAD
-    </q-layout>
-=======
-    <!-- <img class="output" :src="output"> -->
->>>>>>> groupFrist
-  </div>
 </template>
 
     </q-page-container>

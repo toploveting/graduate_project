@@ -1,78 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div id="app">
-    <q-layout view="hHh lpr fFf">
-    <q-header>
-      <q-toolbar class="toolbar bg-secondary">
-        <q-btn
-          flat
-          dense
-          round
-          icon="navigate_beforet"
-          to="list"/>
-        <q-toolbar-title class="title">課表</q-toolbar-title>
-        <q-btn flat round dense label="完成" to="home"/>
-      </q-toolbar>
-    </q-header>
-    <div style="height : 50px" class="btnNav">
-      <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
-        <img class="q-pb-xs padding0" :src="RetryBtn">
-      </q-btn>
-      <q-btn v-on:click="take('eraser')" round unelevated size="sm" class="q-mx-sm">
-        <img class="q-pb-xs padding0" :src="EraserBtn">
-      </q-btn>
-      <div class="Btn">
-        <q-btn v-on:click="take('heart')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="HeartBtn">
-        </q-btn>
-        <p class="btnText pink">偏好</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('circle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="CircleBtn">
-        </q-btn>
-        <p class="btnText blue">可以</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('triangle')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="TriangleBtn">
-        </q-btn>
-        <p class="btnText yellow">不確定</p>
-      </div>
-      <div class="Btn">
-        <q-btn v-on:click="take('cross')" round unelevated size="sm" class="q-mx-sm">
-          <img class="q-pb-xs padding0" :src="CrossBtn">
-        </q-btn>
-        <p class="btnText red">不可以</p>
-      </div>
-    </div>
-    <div class="flex-row">
-      <q-item v-for="item in week" :key="item" class="week" style>{{item.name}}</q-item>
-    </div>
-    <div class="flex-col">
-      <q-item
-        v-for="item in classNo"
-        :key="item"
-        class="cellNo"
-        :class="{ NoBorderBottom: item.noBottom }"
-        style
-      >{{item.id}}</q-item>
-      <q-item
-        v-for="(item, id) in classTable"
-        :key="id"
-        v-on:click="stamp(item)"
-        class="cell"
-        :class="{ NoBorderBottom: item.noBottom }"
-        style
-        clickable
-        v-ripple
-      >
-        <img v-if="item.show" class="shape" :src="item.src">
-      </q-item>
-    </div>
-        </q-layout>
-  </div>
-=======
   <q-layout view="hHh lpr fFf">
     <q-header>
       <q-toolbar class="toolbar bg-secondary">
@@ -149,7 +75,6 @@
       </template>
     </q-page-container>
   </q-layout>
->>>>>>> groupFrist
 </template>
 
 <script>

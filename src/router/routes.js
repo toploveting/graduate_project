@@ -28,28 +28,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-<<<<<<< HEAD
-      { path: 'class', component: () => import('pages/Class.vue') },
       { path: 'month', component: () => import('pages/Month.vue') },
-      { path: 'week', component: () => import('pages/Week.vue') }
-
     ]
   },
   {
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-=======
->>>>>>> groupFrist
-      { path: 'test', component: () => import('pages/FStest.vue') }
-    ]
-  },
-  {
-    path: '/',
-<<<<<<< HEAD
-=======
-    component: () => import('layouts/weekLayout.vue'),
-    children: [
+     { path: 'test', component: () => import('pages/FStest.vue') }
     ]
   },
   { path: '/week', component: () => import('pages/Week.vue') },
@@ -58,7 +44,6 @@ const routes = [
   { path: '/chooseClass', component: () => import('pages/ChooseClass.vue') },
   {
     path: '/',
->>>>>>> groupFrist
     component: () => import('pages/Form.vue'),
     children: [
       { path: 'form', component: () => import('pages/Form.vue') }
