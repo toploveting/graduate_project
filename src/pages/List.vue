@@ -3,7 +3,7 @@
    <div class="bg flex-center">
     <q-img
       alt="bg"
-      src="~assets/background.png"
+      src="~assets/bg2.png"
       height="667px"
       width="375px"
     />

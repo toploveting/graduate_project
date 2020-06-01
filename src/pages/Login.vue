@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="btngroup q-pa-lg q-px-lg">
+    <div class="logo">
+      <img class="img" src="~assets/logo.png"/>
+    </div>
+    <div class="btngroup q-pa-lg">
       <q-btn
         @click="facebooklogin"
-        color="blue-10"
         unelevated
         style="width:180px"
-        class="btn q-ma-md"
+        class="fb btn q-ma-md"
       >
         <q-icon class="fab fa-facebook-f q-pa-md q-pr-lg" size="sm"/>
         <label class="q-px-sm">Facebook</label>
@@ -19,7 +21,7 @@
         color="red-8"
         unelevated
         style="width:180px"
-        class="btn q-ma-md"
+        class="g btn q-ma-md"
         type="submit"
       >
         <q-icon class="fab fa-google q-pa-md q-pr-lg" size="sm"/>
@@ -27,16 +29,25 @@
       </q-btn>
 
       <q-separator inset class="q-ma-md"/>
-      <q-btn to="/email" color="blue-8" unelevated style="width:180px" class="btn q-ma-md">
+      <q-btn
+        to="/email"
+        color="blue-8"
+        unelevated
+        style="width:180px"
+        class="em btn q-ma-md"
+      >
         <q-icon class="q-pa-md q-pr-lg far fa-envelope" size="sm"/>
         <label class="q-px-sm">Email</label>
       </q-btn>
       <br>
       <br>
-      <h7 class="text">還沒有帳號嗎？</h7>
-      <router-link to="signin">
-        <h7>註冊</h7>
-      </router-link>
+      <div class="text">
+        <span class="signin">還沒有帳號嗎？</span>
+        <router-link to="signin">
+          <span>註冊</span>
+        </router-link>
+      </div>
+
     </div>
   </div>
 </template>
@@ -102,13 +113,51 @@ export default {
 </script>
 
 <style>
-.btngroup {
-  margin-top: 280px;
+.logo{
+  width: 100%;
+  position: relative;
+  position: absolute;
+  top: 13%;
+}
+.img{
+  position: relative;
+  position: absolute;
+  left: 50%;
+  margin-left: -56px;
+}
+.btngroup{
+  width: 100%;
+  position: relative;
+  position: absolute;
+  top: 38%;
 }
 .btn {
-  margin-left: 23%;
+  left: 50%;
+  margin-left: -90px;
 }
 .text {
-  margin-left: 30%;
+  width: 100%;
+  position: relative;
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  margin-left: -83.5px;
+  font-size: 14pt;
+  color: rgb(140, 140,140);
+}
+.fb{
+  background-color: rgb(59, 89, 152);
+  color: white;
+  border-radius: 10pt;
+}
+.g{
+  background-color: rgb(221, 75, 57);
+  color: white;
+  border-radius: 10pt;
+}
+.em{
+  background-color: rgb(63, 121, 204);
+  color: white;
+  border-radius: 10pt;
 }
 </style>

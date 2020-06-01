@@ -83,7 +83,9 @@ module.exports = function (ctx) {
         'QPageSticky',
         'QPageScroller',
         'QSeparator',
-        'QLinearProgress'
+        'QLinearProgress',
+        'QDialog',
+        'QBtnToggle'
       ],
       directives: [
         'ClosePopup',

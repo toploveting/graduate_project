@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div class="q-mt-xl q-ml-lg">
-      <h6>創立新帳號</h6>
+      <q-form @submit="signUp" class="form">
+      <span class="top">創立新帳號</span>
       <br>
-      <q-form @submit="signUp">
-      <div class="row">
-      <q-input class="q-mb-md" v-model="first" label="姓氏" :dense="dense" />
-      <q-input class="q-pl-sm q-mb-md" v-model="name" label="名字" :dense="dense" />
+      <div class="row q-mt-lg">
+      <q-input class="q-mb-md lastname" v-model="first" label="姓氏" :dense="dense" />
+      <q-input class="q-pl-lg q-mb-md name" v-model="name" label="名字" :dense="dense" />
       </div>
-      <q-input class="q-pr-lg q-mb-md" v-model="email" type="email" label="電子信箱" :dense="dense" />
-      <q-input class="q-pr-lg q-mb-md" v-model="password" :type="isPwd ? 'password' : 'text'" label="密碼">
+      <q-input class="q-mb-md mail" v-model="email" type="email" label="電子信箱" :dense="dense" />
+      <q-input class="q-mb-md password" v-model="password" :type="isPwd ? 'password' : 'text'" label="密碼">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -18,7 +17,7 @@
           />
         </template>
       </q-input>
-      <q-input class="q-pr-lg q-mb-md" v-model="passwordc" :type="isPwdc ? 'password' : 'text'" label="確認密碼">
+      <q-input class="q-mb-md" v-model="passwordc" :type="isPwdc ? 'password' : 'text'" label="確認密碼">
         <template v-slot:append>
           <q-icon
             :name="isPwdc ? 'visibility_off' : 'visibility'"
@@ -27,17 +26,37 @@
           />
         </template>
       </q-input>
-      <q-btn color="blue-8" unelevated style="width:180px" class="btn q-ma-md" label="註冊" type="submit">
-    </q-btn>
+      <div class="btn">
+      <q-btn unelevated style="width:180px"  label="註冊" type="submit"></q-btn>
+      </div>
     </q-form>
     </div>
-  </div>
 </template>
 
 <style lang="scss">
+.top{
+  font-size: 21pt;
+  color: rgb(63, 121, 204);
+}
+.form{
+  position: relative;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  margin-left: -145px;
+}
+.lastname{
+  width: 60pt;
+}
 .btn{
-  margin-left: 20%;
-  margin-top: 15%
+position: relative;
+position: absolute;
+top: 115%;
+left: 50%;
+margin-left: -90px;
+background-color: rgb(63, 121, 204);
+color: white;
+border-radius: 10pt;
 }
 </style>
 

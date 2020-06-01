@@ -1,5 +1,18 @@
 <template>
   <div id="app">
+    <q-layout view="hHh lpr fFf">
+    <q-header>
+      <q-toolbar class="toolbar bg-secondary">
+        <q-btn
+          flat
+          dense
+          round
+          icon="navigate_beforet"
+          to="list"/>
+        <q-toolbar-title class="title">課表</q-toolbar-title>
+        <q-btn flat round dense label="完成" to="home"/>
+      </q-toolbar>
+    </q-header>
     <div style="height : 50px" class="btnNav">
       <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
         <img class="q-pb-xs padding0" :src="RetryBtn">
@@ -56,6 +69,7 @@
         <img v-if="item.show" class="shape" :src="item.src">
       </q-item>
     </div>
+        </q-layout>
   </div>
 </template>
 
