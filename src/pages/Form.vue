@@ -5,7 +5,7 @@
         <q-toolbar class="toolbar bg-secondary">
           <q-btn flat dense round icon="navigate_beforet" @click="$refs.stepper.previous()"/>
           <q-toolbar-title class="title">建立活動</q-toolbar-title>
-          <q-btn flat round dense icon="clear" class="q-mr-xs" to="home"/>
+          <q-btn flat round dense icon="clear" class="q-mr-xs" to="activity"/>
         </q-toolbar>
       </q-header>
     <q-page-container>
