@@ -1,4 +1,21 @@
 <template>
+  <q-layout view="hHh lpr fFf">
+    <q-header>
+      <q-toolbar class="toolbar bg-secondary">
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          to="list"/>
+          <q-space />
+        <q-toolbar-title class="title">週曆</q-toolbar-title>
+        <q-space />
+        <q-btn @click="print('hello')" flat round dense label="下一步" class="q-mr-xs" />
+      </q-toolbar>
+    </q-header>
+    <q-page-container>
+<template>
   <div class="q-pa-md padding0" style="height:100%">
     <div style="height : 50px" class="btnNav">
       <q-btn v-on:click="retry" round unelevated size="sm" class="q-mx-sm retryBtn">
@@ -35,7 +52,8 @@
     </div>
 
     <q-card
-      v-touch-swipe.mouse.horizontal="handleSwipe"
+      ref="hello"
+      v-touch-swipe.horizontal="handleSwipe"
       class="no-shadow relative-position flex-center"
     >
       <div class="row day0">
@@ -63,10 +81,10 @@
         </div>
       </div>
 
-      <!-- <q-btn @click="next" label="Next" class="btn btn-default"></q-btn> -->
+      <!-- <q-btn @click.native="print('hello')" label="Capture" class="btn btn-default"></q-btn> -->
       <!-- <p>{{info}}</p> -->
 
-      <swipe ref="mySwipe" style="max-width:500px;margin:0 auto">
+      <swipe ref="mySwipe" :options="swipeOptions" style="max-width:500px;margin:0 auto">
         <swipe-item>
           <div class="flex-col">
             <div class="aa">
@@ -516,15 +534,26 @@
         </swipe-item>
       </swipe>
     </q-card>
+    <!-- <img class="output" :src="output"> -->
   </div>
+</template>
+
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
 // import firebase from 'firebase'
-// import { db } from '../boot/firebase.js'
+import { db } from '../boot/firebase.js'
 import Vue from 'vue'
 import VSwipe from 'vswipe'
 Vue.use(VSwipe)
+import html2canvas from 'html2canvas'
+import Bus from '../boot/bus.js'
+
+// import { Swipe, SwipeItem } from 'vue-swipe'
+// Vue.component('swipe', Swipe)
+// Vue.component('swipe-item', SwipeItem)
 
 import { date } from 'quasar'
 
@@ -629,6 +658,15 @@ for (let i = 0; i < 300; i++) {
 export default {
   data: function () {
     return {
+      output: null,
+      swipeOptions: {
+        startSlide: 0,
+        // continuous: false,
+        disableScroll: false,
+        callback: function (index, slide) {
+          console.log(index)
+        }
+      },
       info: null,
       weekID: weekID,
       Month: Month,
@@ -4942,12 +4980,32 @@ export default {
     }
   },
   methods: {
+    async print (name) {
+      const el = this.$refs[name].$el
+      const screenshot = (await html2canvas(el)).toDataURL()
+      this.output = (await html2canvas(el)).toDataURL()
+      db.collection('screenshot')
+        .doc('week')
+        .set({
+          url: screenshot
+        })
+        .then(function () {
+          console.log('Document successfully written!')
+        })
+        .catch(function (error) {
+          console.error('Error writing document: ', error)
+        })
+      Bus.$emit('url', (await html2canvas(el)).toDataURL())
+      this.$router.push({ path: '/chooseWeek' })
+    },
     handleSwipe ({ direction }) {
       this.info = direction
       if (direction === 'left') {
         page += 1
         weekID += 1
+        this.$refs.mySwipe.next()
         this.Mon = Monday[weekID]
+        this.Sun = Sunday[weekID]
         if (Monday[weekID] < 8) {
           if (this.Month === 12) {
             Month = 1
@@ -4956,9 +5014,7 @@ export default {
             this.Month = Month
           }
         }
-        this.Sun = Sunday[weekID]
-        this.$refs.mySwipe.next()
-        console.log(page)
+        console.log(weekID)
       } else if (direction === 'right') {
         page -= 1
         weekID -= 1
@@ -4979,40 +5035,6 @@ export default {
       // native Javascript event
       // console.log(evt)
     },
-    prev () {
-      this.$refs.mySwipe.prev()
-    },
-    // next () {
-    //   weekID += 1
-    //   console.log(weekID)
-    //   this.$refs.mySwipe.next()
-    // },
-    nextWeek: function () {
-      weekID = weekID + 1
-    },
-    // addMessage: function () {
-    //   if (this.inputMessage === '') return
-
-    //   // Add message to firestore
-    //   db
-    //     .collection('Date')
-    //     .add({
-    //       // Auth: {
-    //       //   uid: this.user.uid,
-    //       //   name: this.user.displayName,
-    //       //   photoURL: this.user.photoURL,
-    //       //   email: this.user.email
-    //       // },
-    //       Time:{
-    //         Year: this.Year
-    //       },
-    //       content: this.inputMessage,
-    //       createTime: firebase.firestore.Timestamp.fromDate(new Date())
-    //     })
-    //     .then(() => {
-    //       this.inputMessage = ''
-    //     })
-    // },
     retry: function () {
       if (page === 0) {
         for (let i = 0; i < this.date0.length; i++) {
@@ -5201,6 +5223,17 @@ export default {
       }
     }
   }
+  // updated: function () {
+  //   console.log('1==我会先执行')
+
+  //   this.$nextTick(function () {
+  //     // 在下次 DOM 更新循环结束之后执行这个回调。在修改数据之后立即使用这个方法，获取更新后的DOM.
+  //     this.print('hello')
+  //     console.log('3==我只能等页面渲染完了才会立即执行')
+  //   })
+
+  //   console.log('2==我虽然在最后但会比$nextTick先执行')
+  // }
 }
 </script>
 
@@ -5377,5 +5410,12 @@ export default {
 }
 .red {
   color: #ce0014;
+}
+.output {
+  width: 375px;
+  height: auto;
+}
+.title{
+  text-align: center
 }
 </style>

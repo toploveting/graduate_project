@@ -10,7 +10,8 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     boot: [
       'firebase',
-      'capacitor'
+      'capacitor',
+      'bus'
     ],
     css: [
       'app.scss'
@@ -83,7 +84,9 @@ module.exports = function (ctx) {
         'QPageSticky',
         'QPageScroller',
         'QSeparator',
-        'QLinearProgress'
+        'QLinearProgress',
+        'QScrollArea',
+        'QDialog'
       ],
       directives: [
         'ClosePopup',
@@ -126,7 +129,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
+      https: true,
       port: 8080,
       open: true // opens browser window automatically
     },
