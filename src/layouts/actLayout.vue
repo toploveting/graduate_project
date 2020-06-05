@@ -18,7 +18,7 @@
         v-model="leftDrawerOpen"
         :width="216"
         :breakpoint="500"
-        content-class="bg-secondary"
+      :content-style="{ backgroundColor: '#2c4b78' }"
         class="drawer"
       >
         <q-scroll-area class="fit">
@@ -63,7 +63,7 @@
             </q-expansion-item>
             <q-expansion-item
               label="建立活動" expand-icon-class="text-white">
-              <q-item clickable v-ripple to="activity">
+              <q-item clickable v-ripple @click="leftDrawerOpen = !leftDrawerOpen">
                 <q-item-section avatar>
                   <q-img src="~assets/star.png" style="width:20px" class="q-ml-xs"/>
                 </q-item-section>
@@ -82,7 +82,7 @@
               </q-item-section>
             </q-item>
             <q-separator color="white"/>
-            <q-item clickable v-ripple to="/">
+            <q-item clickable v-ripple>
               <q-item-section avatar>
                 <q-img src="~assets/logout.png" style="width:20px" class="q-ml-xs"/>
               </q-item-section>

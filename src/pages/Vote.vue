@@ -2,7 +2,14 @@
   <q-layout view="hHh lpr fFf" class="rounded-borders">
     <q-header class="bg-secondary">
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen"/>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
         <q-btn to="vote_r" flat dense round icon="event_note"/>
         <q-toolbar-title class="main_title text-center">活動名稱</q-toolbar-title>
         <q-btn flat dense round icon="share"/>
@@ -10,13 +17,19 @@
         <q-btn flat dense @click="choose" v-if="choosed" label="完成"/>
       </q-toolbar>
     </q-header>
-    <q-drawer v-model="leftDrawerOpen" :width="216" :breakpoint="500" content-class="bg-secondary" class="drawer">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      :width="216"
+      :breakpoint="500"
+      content-class="bg-secondary"
+      class="drawer"
+    >
       <q-scroll-area class="fit">
         <q-list padding>
           <q-item clickable v-ripple to="home">
             <q-item-section class="q-py-sm">
               <q-avatar size="56px">
-                <img src="~assets/ying.jpg"/>
+                <img src="~assets/ying.jpg">
               </q-avatar>
             </q-item-section>
             <q-item-section>陳穎</q-item-section>
@@ -27,13 +40,11 @@
               <q-item-section avatar>
                 <q-img src="~assets/classminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
               </q-item-section>
-              <q-item-section>
-                課表
-              </q-item-section>
+              <q-item-section>課表</q-item-section>
             </q-item>
             <q-item clickable v-ripple to="week">
               <q-item-section avatar>
-                 <q-img src="~assets/weekminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
+                <q-img src="~assets/weekminiicon.png" style="width:20px" class="q-ml-xs"></q-img>
               </q-item-section>
               <q-item-section>週曆</q-item-section>
             </q-item>
@@ -63,19 +74,19 @@
       </q-scroll-area>
     </q-drawer>
     <div class="row items-start bg-secondary">
-    <!--四月-->
+      <!--四月-->
       <q-card class="my-card" flat :fullscreen.sync="isFullscreen">
         <q-card-section class="title text-white">
           <div>
             <div class="text-h6">4月</div>
             <q-btn-dropdown stretch flat class="absolute-right" :label="array">
               <q-list>
-                <q-item clickable v-close-popup >
+                <q-item clickable v-close-popup>
                   <q-item-section>
                     <q-item-label @click="array_date">依照日期排列</q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item clickable v-close-popup >
+                <q-item clickable v-close-popup>
                   <q-item-section>
                     <q-item-label @click="array_vote">依照票數排列</q-item-label>
                   </q-item-section>
@@ -94,27 +105,57 @@
               <h8 class="time q-px-sm">早上</h8>
             </div>
             <div class="q-mx-xs q-my-sm col-5">
-              <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">19:00吃飯</h8></div>
-              <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">22:00釣蝦</h8></div>
+              <div class="row q-py-xs">
+                <div class="schedule"></div>
+                <h8 class="q-px-sm">19:00吃飯</h8>
+              </div>
+              <div class="row q-py-xs">
+                <div class="schedule"></div>
+                <h8 class="q-px-sm">22:00釣蝦</h8>
+              </div>
             </div>
             <div class="q-mx-xs q-my-sm col">
               <q-item class="row vote_item" :clickable="!choosed" @click="open('bottom')">
                 <div class="col text-center">
                   <div v-if="!choosed">{{x}}</div>
-                  <q-btn v-on:click="take('circle')" :ripple="false" round unelevated class="btn" :disable="!choosed" v-model="btnc">
-                    <img class="q-pb-xs q-px-sm" :src="Votecircle"/>
+                  <q-btn
+                    v-on:click="take('circle')"
+                    :ripple="false"
+                    round
+                    unelevated
+                    class="btn"
+                    :disable="!choosed"
+                    v-model="btnc"
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votecircle">
                   </q-btn>
                 </div>
                 <div class="col text-center">
                   <div v-if="!choosed">{{y}}</div>
-                  <q-btn v-on:click="take('triangle')" :ripple="false" round unelevated class="btn" :disable="!choosed" v-model="btnc">
-                    <img class="q-pb-xs q-px-sm" :src="Votetriangle"/>
+                  <q-btn
+                    v-on:click="take('triangle')"
+                    :ripple="false"
+                    round
+                    unelevated
+                    class="btn"
+                    :disable="!choosed"
+                    v-model="btnc"
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votetriangle">
                   </q-btn>
                 </div>
                 <div class="col text-center">
                   <div v-if="!choosed">{{z}}</div>
-                  <q-btn v-on:click="take('cross')" :ripple="false" round unelevated class="btn" :disable="!choosed" v-model="btnc">
-                    <img class="q-pb-xs q-px-sm" :src="Votecross"/>
+                  <q-btn
+                    v-on:click="take('cross')"
+                    :ripple="false"
+                    round
+                    unelevated
+                    class="btn"
+                    :disable="!choosed"
+                    v-model="btnc"
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votecross">
                   </q-btn>
                 </div>
                 <q-dialog v-model="dialog" :position="position">
@@ -127,14 +168,15 @@
                       <div>
                         <div class="card_month text-center shadow-5">4/13-星期二</div>
                         <div class="can">
-                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/><span class="second_title">可以</span>
+                          <img class="q-pb-xs pic" src="~assets/votecircle.png">
+                          <span class="second_title">可以</span>
                         </div>
                         <div class="result1 q-mt-md q-px-md q-py-sm shadow-5">
-                          <img class="head_pic" src="~assets/face.png"/>
+                          <img class="head_pic" src="~assets/face.png">
                           <span class="re_people">李昀庭</span>
                           <span class="re_ps">備註：但18:00有事</span>
                           <q-separator class="q-my-sm"/>
-                          <img class="head_pic" src="~assets/face2.png"/>
+                          <img class="head_pic" src="~assets/face2.png">
                           <span class="re_people">陳穎</span>
                         </div>
                         <div class="notsure">
@@ -151,7 +193,20 @@
                 </q-dialog>
               </q-item>
               <div class="row ps">
-                <q-checkbox size="xs" v-model="teal" label="備註" color="secondary" />
+                <!-- <q-checkbox size="xs" v-model="teal" label="備註" color="secondary" /> -->
+
+                <q-input
+                  class="q-pr-xs note"
+                  color="secondary"
+                  v-model="text2"
+                  label="備註"
+                  dense
+                  :disable="!teal"
+                >
+                  <template v-slot:before>
+                    <q-checkbox size="xs" class color="secondary" v-model="teal" val="other"/>
+                  </template>
+                </q-input>
               </div>
             </div>
           </div>
@@ -162,7 +217,10 @@
               <h8 class="time q-px-sm">早上</h8>
             </div>
             <div class="q-mx-xs q-my-sm col-5">
-              <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">16:00看電影</h8></div>
+              <div class="row q-py-xs">
+                <div class="schedule"></div>
+                <h8 class="q-px-sm">16:00看電影</h8>
+              </div>
             </div>
             <div class="q-mx-xs q-my-sm col">
               <q-item class="row vote_item" :clickable="!choosed" @click="open('bottom')">
@@ -176,8 +234,8 @@
                     class="btn"
                     :disable="!choosed"
                     v-model="btnc"
-                    >
-                    <img class="q-pb-xs q-px-sm" :src="Votecircle_1"/>
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votecircle_1">
                   </q-btn>
                 </div>
                 <div class="col text-center">
@@ -190,8 +248,8 @@
                     class="btn"
                     :disable="!choosed"
                     v-model="btnc"
-                    >
-                    <img class="q-pb-xs q-px-sm" :src="Votetriangle_1"/>
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votetriangle_1">
                   </q-btn>
                 </div>
                 <div class="col text-center">
@@ -204,8 +262,8 @@
                     class="btn"
                     :disable="!choosed"
                     v-model="btnc"
-                    >
-                    <img class="q-pb-xs q-px-sm" :src="Votecross_1"/>
+                  >
+                    <img class="q-pb-xs q-px-sm" :src="Votecross_1">
                   </q-btn>
                 </div>
                 <q-dialog v-model="dialog" :position="position">
@@ -218,7 +276,8 @@
                       <div>
                         <div class="card_month text-center shadow-5">4/14-星期三</div>
                         <div class="can">
-                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/><span class="second_title">可以</span>
+                          <img class="q-pb-xs pic" src="~assets/votecircle.png">
+                          <span class="second_title">可以</span>
                         </div>
                         <div class="result1 q-mt-md q-px-md q-py-sm shadow-5">
                           <q-img class="head_pic" src="~assets/face.png"/>
@@ -229,11 +288,11 @@
                           <span class="re_people">陳穎</span>
                         </div>
                         <div class="notsure">
-                          <img class="q-pb-xs pic" src="~assets/votetriangle.png"/>
+                          <img class="q-pb-xs pic" src="~assets/votetriangle.png">
                           <span class="second_title">不確定</span>
                         </div>
                         <div class="cannot">
-                          <img class="q-pb-xs pic" src="~assets/votecross.png"/>
+                          <img class="q-pb-xs pic" src="~assets/votecross.png">
                           <span class="second_title">不可以</span>
                         </div>
                       </div>
@@ -242,7 +301,18 @@
                 </q-dialog>
               </q-item>
               <div class="row ps">
-                <q-checkbox size="xs" v-model="teal2" label="備註" color="secondary" />
+                <q-input
+                  class="q-pr-xs note"
+                  color="secondary"
+                  v-model="text2"
+                  label="備註"
+                  dense
+                  :disable="!teal2"
+                >
+                  <template v-slot:before>
+                    <q-checkbox size="xs" class color="secondary" v-model="teal2" val="other"/>
+                  </template>
+                </q-input>
               </div>
             </div>
           </div>
@@ -265,9 +335,18 @@
             <h8 class="time q-px-sm">早上</h8>
           </div>
           <div class="q-mx-xs q-my-sm col-5">
-            <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">12:00吃飯</h8></div>
-            <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">18:00約會</h8></div>
-            <div class="row q-py-xs"><div class="schedule"></div><h8 class="q-px-sm">23:00喝酒</h8></div>
+            <div class="row q-py-xs">
+              <div class="schedule"></div>
+              <h8 class="q-px-sm">12:00吃飯</h8>
+            </div>
+            <div class="row q-py-xs">
+              <div class="schedule"></div>
+              <h8 class="q-px-sm">18:00約會</h8>
+            </div>
+            <div class="row q-py-xs">
+              <div class="schedule"></div>
+              <h8 class="q-px-sm">23:00喝酒</h8>
+            </div>
           </div>
           <div class="q-mx-xs q-my-sm col">
             <div class="row">
@@ -281,8 +360,8 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votecircle_2"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votecircle_2">
                 </q-btn>
               </div>
               <div class="col text-center">
@@ -295,8 +374,8 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votetriangle_2"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votetriangle_2">
                 </q-btn>
               </div>
               <div class="col text-center">
@@ -309,13 +388,24 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votecross_2"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votecross_2">
                 </q-btn>
               </div>
             </div>
             <div class="row ps">
-              <q-checkbox size="xs" v-model="teal3" label="備註" color="secondary" />
+              <q-input
+                class="q-pr-xs note"
+                color="secondary"
+                v-model="text2"
+                label="備註"
+                dense
+                :disable="!teal3"
+              >
+                <template v-slot:before>
+                  <q-checkbox size="xs" class color="secondary" v-model="teal3" val="other"/>
+                </template>
+              </q-input>
             </div>
           </div>
         </div>
@@ -338,8 +428,8 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votecircle_3"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votecircle_3">
                 </q-btn>
               </div>
               <div class="col text-center">
@@ -352,8 +442,8 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votetriangle_3"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votetriangle_3">
                 </q-btn>
               </div>
               <div class="col text-center">
@@ -366,13 +456,24 @@
                   class="btn"
                   :disable="!choosed"
                   v-model="btnc"
-                  >
-                  <img class="q-pb-xs q-px-sm" :src="Votecross_3"/>
+                >
+                  <img class="q-pb-xs q-px-sm" :src="Votecross_3">
                 </q-btn>
               </div>
             </div>
             <div class="row ps">
-              <q-checkbox size="xs" v-model="teal4" label="備註" color="secondary" />
+              <q-input
+                class="q-pr-xs note"
+                color="secondary"
+                v-model="text2"
+                label="備註"
+                dense
+                :disable="!teal4"
+              >
+                <template v-slot:before>
+                  <q-checkbox size="xs" class color="secondary" v-model="teal4" val="other"/>
+                </template>
+              </q-input>
             </div>
           </div>
         </div>
@@ -383,72 +484,83 @@
 </template>
 
 <style lang="scss" scoped>
-.drawer{
-  color:white
+.drawer {
+  color: white;
 }
-.my-card{
+.my-card {
   width: 100%;
   height: 100%;
   border-top-left-radius: 25pt;
-  border-top-right-radius: 25pt;}
-.title{
+  border-top-right-radius: 25pt;
+}
+.title {
   background-color: rgb(44, 75, 120);
-  padding-left: 10%;}
-.inside{
+  padding-left: 10%;
+}
+.inside {
   background-color: rgb(44, 75, 120);
   width: 100%;
-  height: 100%;}
-.inside-card{
+  height: 100%;
+}
+.inside-card {
   width: 100%;
   height: 100%;
   border-top-left-radius: 15pt;
   border-top-right-radius: 15pt;
   padding: 0pt;
-  border: 0pt}
-.item0{
-  width: 100%;}
-.item{
+  border: 0pt;
+}
+.item0 {
   width: 100%;
-  border-top: 1pt solid rgb(63, 121, 204)}
-.bottom{
-  height: 30pt;}
-.my-card1{
+}
+.item {
+  width: 100%;
+  border-top: 1pt solid rgb(63, 121, 204);
+}
+.bottom {
+  height: 30pt;
+}
+.my-card1 {
   width: 100%;
   height: 100%;
   margin-top: -30pt;
   border-top-left-radius: 25pt;
   border-top-right-radius: 25pt;
-  }
-.day{
-  color :rgb(112, 112, 112);}
-.date{
-  color: rgb(63, 121, 204);}
-.time{
+}
+.day {
+  color: rgb(112, 112, 112);
+}
+.date {
+  color: rgb(63, 121, 204);
+}
+.time {
   color: rgb(44, 75, 120);
   border: 1px solid rgb(44, 75, 120);
-  border-radius: 6pt;}
-.schedule{
+  border-radius: 6pt;
+}
+.schedule {
   height: 15pt;
   width: 0pt;
   border: 2pt solid rgb(250, 157, 157);
-  border-radius: 5pt;}
-.btn{
+  border-radius: 5pt;
+}
+.btn {
   margin: 0px;
 }
-.vote_item{
+.vote_item {
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 0px;
   padding-right: 0px;
 }
-.dialog{
+.dialog {
   background-color: rgb(238, 241, 246);
   height: 551px;
 }
-.dialog_title{
+.dialog_title {
   background-color: white;
 }
-.card_month{
+.card_month {
   width: 150px;
   height: 44px;
   font-size: 21px;
@@ -457,7 +569,7 @@
   border-radius: 10pt;
   padding-top: 6pt;
 }
-.can{
+.can {
   height: 32px;
   font-size: 21px;
   color: rgb(68, 68, 68);
@@ -465,7 +577,7 @@
   margin-top: 35px;
   margin-left: -16px;
 }
-.notsure{
+.notsure {
   height: 32px;
   font-size: 21px;
   color: rgb(68, 68, 68);
@@ -473,7 +585,7 @@
   margin-top: 35px;
   margin-left: -16px;
 }
-.cannot{
+.cannot {
   height: 32px;
   font-size: 21px;
   color: rgb(68, 68, 68);
@@ -482,27 +594,27 @@
   margin-left: -16px;
 }
 
-.pic{
+.pic {
   margin-left: 26px;
 }
-.second_title{
+.second_title {
   margin-left: 11px;
 }
-.result1{
+.result1 {
   background-color: white;
   border-radius: 10pt;
   width: 323px;
   margin-left: 10px;
 }
-.head_pic{
+.head_pic {
   height: 36px;
   width: 36px;
 }
-.re_people{
+.re_people {
   font-size: 18px;
   margin-left: 9px;
 }
-.re_ps{
+.re_ps {
   font-size: 14px;
   margin-left: 53px;
   color: rgb(149, 149, 149);
@@ -563,7 +675,6 @@ export default {
       x_3: 0,
       y_3: 0,
       z_3: 0
-
     }
   },
   methods: {

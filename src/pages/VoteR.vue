@@ -3,7 +3,7 @@
     <q-header class="bg-secondary">
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen"/>
-        <q-btn to="vote_r" flat dense round icon="event_note"/>
+        <q-btn to="vote" flat dense round icon="event_note"/>
         <q-toolbar-title class="main_title text-center">活動名稱</q-toolbar-title>
         <q-btn flat dense round icon="share"/>
         <q-btn flat dense @click="choose" v-if="!choosed" label="選擇"/>

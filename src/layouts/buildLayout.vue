@@ -5,11 +5,12 @@
         <q-btn
           flat
           dense
-          round
           icon="navigate_beforet"
-          to="home"/>
+          to="form"/>
+          <q-space />
         <q-toolbar-title class="title">建立活動</q-toolbar-title>
-        <q-btn to="home" flat round dense icon="clear" class="q-mr-xs" />
+        <q-space />
+        <q-btn to="activity" flat dense icon="clear" class="q-mr-xs" />
       </q-toolbar>
     </q-header>
     <q-page-container>

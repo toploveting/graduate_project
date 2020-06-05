@@ -11,8 +11,8 @@
     </div>
     <template id="t">
       <div class="container">
-        <q-input type="text" v-model="message"/>
-        <q-btn class="btn" outline label="複製" type="button" @click="doCopy"></q-btn>
+<q-input type="text" standout disable dense label="網址"/>
+       <q-btn class="btn" outline label="複製" type="button" @click="doCopy"></q-btn>
       </div>
     </template>
     <br>
