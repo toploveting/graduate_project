@@ -28,14 +28,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-      { path: 'month', component: () => import('pages/Month.vue') },
+      { path: 'month', component: () => import('pages/Month.vue') }
     ]
   },
   {
     path: '/',
     component: () => import('layouts/blueLayout.vue'),
     children: [
-     { path: 'test', component: () => import('pages/FStest.vue') }
+      { path: 'test', component: () => import('pages/FStest.vue') }
     ]
   },
   { path: '/week', component: () => import('pages/Week.vue') },
@@ -79,6 +79,13 @@ const routes = [
       { path: 'setmonth', component: () => import('pages/Setmonth.vue') },
       { path: 'setid', component: () => import('pages/Setid.vue') },
       { path: 'setaccount', component: () => import('pages/Setaccount.vue') }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/teachFLayout.vue'),
+    children: [
+      { path: 'teachf', component: () => import('pages/TeachF.vue') }
     ]
   },
   {

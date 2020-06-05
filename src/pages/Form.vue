@@ -92,7 +92,7 @@
             </template>
           </q-input>
           <q-stepper-navigation class="text-center">
-            <q-btn @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步"/>
+            <q-btn v-if="step < 3" @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步"/>
           </q-stepper-navigation>
         </q-step>
         <q-step

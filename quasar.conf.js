@@ -85,13 +85,9 @@ module.exports = function (ctx) {
         'QPageScroller',
         'QSeparator',
         'QLinearProgress',
-<<<<<<< HEAD
         'QDialog',
-        'QBtnToggle'
-=======
+        'QBtnToggle',
         'QScrollArea',
-        'QDialog'
->>>>>>> groupFrist
       ],
       directives: [
         'ClosePopup',

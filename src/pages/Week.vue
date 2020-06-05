@@ -6,8 +6,7 @@
           flat
           dense
           round
-          icon="menu"
-          to="list"/>
+          icon="navigate_before" to="list"/>
           <q-space />
         <q-toolbar-title class="title">週曆</q-toolbar-title>
         <q-space />

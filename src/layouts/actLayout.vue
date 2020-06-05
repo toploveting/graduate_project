@@ -11,6 +11,13 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-toolbar-title class="title">JOINME</q-toolbar-title>
+        <q-btn
+          flat
+          dense
+          round
+          icon="add"
+          to="form"
+        />
       </q-toolbar>
     </q-header>
 

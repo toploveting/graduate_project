@@ -10,7 +10,7 @@
           icon="navigate_beforet"
           to="list"/>
         <q-toolbar-title class="title">週曆</q-toolbar-title>
-        <q-btn flat round dense label="完成" to="home"/>
+        <q-btn flat round dense label="下一步" to="home"/>
         </q-toolbar>
       </q-header>
       <div style="height : 50px" class="btnNav">

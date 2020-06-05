@@ -15,7 +15,10 @@
       </q-item>
       <br>
       <q-item class="item2">
-      <q-slide-item @left="onLeft" class="shadow-4 slide">
+      <q-slide-item @left="onLeft" @right="onRight" class="shadow-4 slide">
+        <template v-slot:right>
+          <q-icon name="delete" />
+        </template>
         <div class="my-card">
             <div class="text-title text-bold">讀書會</div>
             <br><br>
