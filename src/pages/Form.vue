@@ -8,149 +8,142 @@
           <q-btn flat round dense icon="clear" class="q-mr-xs" to="activity"/>
         </q-toolbar>
       </q-header>
-    <q-page-container>
-      <q-stepper v-model="step" ref="stepper" color="secondary" contracted animated flat>
-        <q-step
-          :name="1"
-          title="建立活動"
-          color="secondary"
-          :done="step > 1"
-          :bordered="step > 1"
-        >
-          <p class="text text-bold q-pt-md q-pl-lg">主題名稱</p>
-          <q-input
-            class="q-mx-lg"
-            filled
-            v-model="text"
-            label="title"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Please type something']"/>
-          <p class="text text-bold q-pl-lg">說明</p>
-          <q-input
-            class="q-mx-lg"
-            filled
-            v-model="text1"
-            label="suscribe"
-            type="textarea"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Please type something']"/>
-          <q-stepper-navigation class="text-center">
-            <q-btn @click="() => { done1 = true; step = 2 }" color="secondary" label="下一步"/>
-          </q-stepper-navigation>
-        </q-step>
-        <q-step
-          :name="2"
-          title="選擇日期"
-          color="secondary"
-          icon="create_new_folder"
-          :done="step > 2"
-          :bordered="step > 2"
-          class="q-px-md">
-          <p class="text text-bold daterange">日期區間</p>
-          <v-date-picker
-            first-day-of-week="2"
-            :masks="{ title: 'MMM YYYY' }"
-            mode="multiple"
-            :value="null"
-            v-model='dates'
-            color="blue"/>
-          <p class="text text-bold timing">時段</p>
-          <q-checkbox color="secondary" v-model="selectall" val="all" label="全選" />
-          <q-separator />
-          <br>
-          <q-toggle
-            v-model="third"
-            checked-icon="check"
-            color="green"
-            unchecked-icon="clear"
-            label="早上"/>
-          <br><br>
-          <q-toggle
-            v-model="third2"
-            checked-icon="check"
-            color="green"
-            unchecked-icon="clear"
-            label="中午"/>
-          <br><br>
-          <q-toggle
-            v-model="third3"
-            checked-icon="check"
-            color="green"
-            unchecked-icon="clear"
-            label="下午"/>
-          <br><br>
-          <q-toggle
-            v-model="third4"
-            checked-icon="check"
-            color="green"
-            unchecked-icon="clear"
-            label="晚上"/>
-          <br><br>
-          <q-input class="q-pr-md" color="secondary"  v-model="text2" label="其他" :dense="dense" >
-            <template v-slot:before>
-              <q-checkbox class="" color="secondary"  v-model="selection" val="other" />
-            </template>
-          </q-input>
-          <q-stepper-navigation class="text-center">
-            <q-btn @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步"/>
-          </q-stepper-navigation>
-        </q-step>
-        <q-step
-          :name="3"
-          title="結束時間"
-          color="secondary"
-          icon="add_comment"
-          :done="step > 3"
-          :bordered="step > 3">
-          <div class="q-gutter-sm">
-            <q-toggle
-              class="q-px-md"
-              v-model="over"
+      <q-page-container>
+        <q-stepper v-model="step" ref="stepper" color="secondary" contracted animated flat>
+          <q-step :name="1" title="建立活動" color="secondary" :done="step > 1" :bordered="step > 1">
+            <p class="text text-bold q-pt-md q-pl-lg">主題名稱</p>
+            <q-input
+              class="q-mx-lg"
+              filled
+              v-model="title"
+              label
+              lazy-rules
+              :rules="[ val => val && val.length > 0 || 'Please type something']"
+            />
+            <p class="text text-bold q-pl-lg">說明</p>
+            <q-input
+              class="q-mx-lg"
+              filled
+              v-model="suscribe"
+              label
+              type="textarea"
+              lazy-rules
+              :rules="[ val => val && val.length > 0 || 'Please type something']"
+            />
+
+            <q-stepper-navigation class="text-center">
+              <q-btn @click="() => { done1 = true; step = 2 }" color="secondary" label="下一步"/>
+            </q-stepper-navigation>
+          </q-step>
+          <q-step
+            :name="2"
+            title="選擇日期"
+            color="secondary"
+            icon="create_new_folder"
+            :done="step > 2"
+            :bordered="step > 2"
+            class="q-px-md"
+          >
+            <p class="text text-bold daterange">日期區間</p>
+            <v-date-picker
+              first-day-of-week="2"
+              :masks="{ title: 'MMM YYYY' }"
+              mode="multiple"
+              :value="null"
+              v-model="dates"
+              color="blue"
+            />
+
+            <p class="text text-bold timing">時段</p>
+            <q-checkbox color="secondary" v-model="selectall" val="all" label="全選"/>
+            <q-separator/>
+            <br>
+            <q-checkbox
+              v-model="third"
               checked-icon="check"
-              color="green"
+              color="secondary"
               unchecked-icon="clear"
-              label="結束時間"/>
-          </div>
-          <div class="q-gutter-md q-pt-md q-ml-lg ">
-            <a-date-picker
-              :mode="mode1"
-              showTime
-              @openChange="handleOpenChange1"
-              @panelChange="handlePanelChange1"/>
-          </div>
-          <q-stepper-navigation class="text-center">
-            <q-btn color="secondary" @click="done3 = true" label="建立" to="build"/>
-          </q-stepper-navigation>
-        </q-step>
-      </q-stepper>
-    </q-page-container>
+              label="早上"
+            />
+            <br>
+            <br>
+            <q-checkbox v-model="third2" color="secondary" label="中午"/>
+            <br>
+            <br>
+            <q-checkbox v-model="third3" color="secondary" label="下午"/>
+            <br>
+            <br>
+            <q-checkbox v-model="third4" color="secondary" label="晚上"/>
+            <br>
+            <br>
+            <q-input class="q-pr-md" color="secondary" v-model="text2" label="其他" :dense="dense" :disable="!selection">
+              <template v-slot:before>
+                <q-checkbox class color="secondary" v-model="selection" val="other"/>
+              </template>
+            </q-input>
+
+            <q-stepper-navigation class="text-center">
+              <q-btn @click="() => { done2 = true; step = 3 }" color="secondary" label="下一步"/>
+            </q-stepper-navigation>
+          </q-step>
+          <q-step
+            :name="3"
+            title="結束時間"
+            color="secondary"
+            icon="add_comment"
+            :done="step > 3"
+            :bordered="step > 3"
+          >
+            <div class="q-gutter-sm">
+              <q-toggle class="q-px-md" v-model="over" color="secondary" label="結束時間"/>
+            </div>
+            <div class="q-gutter-md q-pt-md q-ml-lg">
+              <a-date-picker
+                @change="onChange"
+                :mode="mode1"
+                :disabled="!over"
+                showTime
+                @openChange="handleOpenChange1"
+                @panelChange="handlePanelChange1"
+              />
+            </div>
+
+            <q-stepper-navigation class="text-center">
+              <q-btn color="secondary" @click="buildActivity" label="建立" to="build"/>
+            </q-stepper-navigation>
+          </q-step>
+        </q-stepper>
+      </q-page-container>
     </q-layout>
   </div>
 </template>
 
 <style lang="scss">
-.drawer{
-  color:white
+.drawer {
+  color: white;
 }
-.text{
+.text {
   font-size: 20px;
   color: rgb(63, 121, 204);
 }
-.daterange{
+.daterange {
   margin-bottom: 10px;
 }
-.timing{
+.timing {
   margin-top: 35px;
   margin-bottom: 5px;
 }
 </style>
 
->>>>>>> origin/ting
 <script>
+import { db, firebaseAuth } from '../boot/firebase.js'
+
 export default {
   name: 'Form',
   data () {
     return {
+      user: {},
+      isAuth: false,
       group: 'op1',
       name: null,
       age: null,
@@ -169,15 +162,14 @@ export default {
           value: 'op3'
         }
       ],
-      dates: [
-        new Date()
-      ],
+      dates: [],
+      menu: false,
       selectall: false,
-      selection: [],
+      selection: false,
       selectarr: ['morning', 'noon', 'afternoon', 'night'],
       teal: false,
-      text: '',
-      text1: '',
+      title: '',
+      suscribe: '',
       text2: '',
       ph: '',
       dense: false,
@@ -191,10 +183,51 @@ export default {
       third3: false,
       third4: false,
       fourth: true,
-      over: false
+      over: false,
+      overTime: null
     }
   },
+  created () {
+    firebaseAuth.onAuthStateChanged(user => {
+      if (user) {
+        this.user = user
+        this.isAuth = true
+      } else {
+        this.user = {}
+        this.isAuth = false
+      }
+    })
+  },
   methods: {
+    buildActivity: function () {
+      db.collection('activity')
+        .doc(this.title)
+        .set({
+          suscribe: this.suscribe,
+          dates: this.dates,
+          morning: this.third,
+          noon: this.third2,
+          afternoon: this.third3,
+          night: this.third4,
+          other: this.text2,
+          over: this.overTime,
+          createTime: this.getTime()
+        })
+        .then(function () {
+          console.log('Document successfully written!')
+        })
+        .catch(function (error) {
+          console.error('Error writing document: ', error)
+        })
+    },
+    getTime () {
+      const now = new Date()
+      // const hours = now.getHours()
+      // const minutes = now.getMinutes()
+      // const format = hours >= 12 ? '下午' : '上午'
+      // return `${format} ${hours}:${minutes}`
+      return now
+    },
     onSubmit () {
       if (this.accept !== true) {
         this.$q.notify({
@@ -213,6 +246,7 @@ export default {
       }
     },
     onChange (date, dateString) {
+      this.overTime = dateString
       console.log(date, dateString)
     },
     // checkall: function () {
@@ -223,11 +257,13 @@ export default {
     //   }
     // },
     eventsFn (date) {
-      if (date === '2019/02/01' ||
+      if (
+        date === '2019/02/01' ||
         date === '2019/02/05' ||
         date === '2019/02/06' ||
         date === '2019/02/09' ||
-        date === '2019/02/23') {
+        date === '2019/02/23'
+      ) {
         return true
       }
       return false
@@ -254,9 +290,15 @@ export default {
     },
     selectall: function () {
       if (this.selectall) {
-        this.selection = this.selectarr
+        this.third = true
+        this.third2 = true
+        this.third3 = true
+        this.third4 = true
       } else {
-        this.selection = []
+        this.third = false
+        this.third2 = false
+        this.third3 = false
+        this.third4 = false
       }
     }
   }

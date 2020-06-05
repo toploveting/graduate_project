@@ -85,7 +85,7 @@ export default {
         .then(result => {
           this.user = result.user
           this.isAuth = true
-          this.$router.replace('/home')
+          this.$router.replace('/form')
         })
         .catch(err => console.error(err))
     },
