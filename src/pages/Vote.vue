@@ -127,7 +127,9 @@
                       <div>
                         <div class="card_month text-center shadow-5">4/13-星期二</div>
                         <div class="can">
-                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/><span class="second_title">可以</span>
+                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/>
+                          <span class="second_title">可以</span>
+                          <img class="q-pb-xs" src="~assets/people.png" height="18px" width="14px"/>
                         </div>
                         <div class="result1 q-mt-md q-px-md q-py-sm shadow-5">
                           <img class="head_pic" src="~assets/face.png"/>
@@ -218,7 +220,10 @@
                       <div>
                         <div class="card_month text-center shadow-5">4/14-星期三</div>
                         <div class="can">
-                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/><span class="second_title">可以</span>
+                          <img class="q-pb-xs pic" src="~assets/votecircle.png"/>
+                          <span class="second_title">可以</span>
+                          <img class="q-pb-xs people" src="~assets/people.png"/>
+                          <q-img class="q-ml-md q-mb-xs many" src="~assets/rectangle.png">2</q-img>
                         </div>
                         <div class="result1 q-mt-md q-px-md q-py-sm shadow-5">
                           <q-img class="head_pic" src="~assets/face.png"/>
@@ -231,10 +236,14 @@
                         <div class="notsure">
                           <img class="q-pb-xs pic" src="~assets/votetriangle.png"/>
                           <span class="second_title">不確定</span>
+                          <img class="q-pb-xs people" src="~assets/people.png"/>
+                          <q-img class="q-ml-md q-mb-xs many" src="~assets/rectangle.png">0</q-img>
                         </div>
                         <div class="cannot">
                           <img class="q-pb-xs pic" src="~assets/votecross.png"/>
                           <span class="second_title">不可以</span>
+                          <img class="q-pb-xs people" src="~assets/people.png"/>
+                          <q-img class="q-ml-md q-mb-xs many" src="~assets/rectangle.png">0</q-img>
                         </div>
                       </div>
                     </q-card-section>
@@ -506,6 +515,15 @@
   font-size: 14px;
   margin-left: 53px;
   color: rgb(149, 149, 149);
+}
+.people{
+  padding-left: 16px;
+}
+.many{
+  width: 30px;
+  height: 21px;
+  font-size: 16px;
+  color: white;
 }
 </style>
 
