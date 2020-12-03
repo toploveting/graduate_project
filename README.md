@@ -1,6 +1,6 @@
-# 揪ME (Join Me)
+# Q_New (q_new)
 
-graduate project
+Quasar原始碼
 
 ## Install the dependencies
 ```bash
