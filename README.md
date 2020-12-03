@@ -1,4 +1,4 @@
-# Q_New (q_new)
+# 揪ME (Join Me)
 
 graduate project
 
